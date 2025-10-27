@@ -1,0 +1,207 @@
+/*******************************************************************************************
+*
+*  Para gerenciar uma coleção de perguntas para o jogo, defina uma estrutura Pergunta
+contendo, no mínimo: palavra (texto), uma ou mais dicas (texto), nível de dificuldade. O
+sistema deverá permitir cadastrar (inserir/ listar/ pesquisar/ alterar/ excluir) as palavras
+disponíveis. Essa relação deve aumentar e diminuir dinamicamente.
+
+◦ O mecanismo da sequencia de palavras pode ser escolhido pela equipe. Exemplo:
+várias palavras em nível crescente de dificuldade, pontuação, vidas, tempo, etc.
+
+◦ Deverá permitir pesquisar e visualizar as palavras por nível de dificuldade e categoria,
+navegando entre elas. Para isso utilize cores, sons e sua criatividade.
+
+◦ Deverá apresentar um menu inicial com as opções disponíveis. Caso necessário,
+submenus. A interface deverá ser fácil e intuitiva, seja criativo, utilize cores e beeps :) .
+Trate erros do usuário com mensagens e alertas.
+
+◦ A lista com os dados para as palavras iniciais será construída lendo os dados de um
+arquivo .csv (valores separados por vírgula) construído pela equipe que deve ser lido e
+carregado em um vetor de tamanho dinâmico na primeira abertura do programa. Esse
+arquivo deve ter no mínimo 100 palavras
+
+◦ Ao sair do programa, todos os dados devem ser salvos em arquivos binários no HD e
+recarregados novamente ao iniciar. Caso os arquivos não existam, eles devem ser
+criados e uma mensagem de boas vindas deve ser apresentada ao usuário;
+
+◦ O sistema deverá exibir no menu uma opção de exportar ao dados das questões em um
+arquivo texto no formato .CSV (separados por vírgula);
+*
+********************************************************************************************/
+
+#include "raylib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+typedef struct{
+
+  char palavra[100];
+  char dicas[3][200];
+  int nivelDificuldade;
+
+} Pergunta;
+
+int main(void){
+    
+    int i = 0;
+    int contador = 0;
+    float poxicao_x = 0.f;
+
+  const int altura = 1200;
+  const int largura = 1000;
+
+  InitWindow(altura, largura, "Termo entre dimençoes");//abrindo a janela do jogo
+  SetTargetFPS(60);//fps do jogo
+
+  Image fase_1 = LoadImage("Imagens/Terreno/DragonBall.png");//abrindo a imagem
+  ImageResize(&fase_1, 1200, 1000);//redimensionado a imagem
+  Texture2D texture = LoadTextureFromImage(fase_1);//tranformando a imagem em uma textura
+  UnloadImage(fase_1);//fechando a imagem
+  
+  Image fase_2 = LoadImage("Imagens/Terreno/Hogwarts.png");//abrindo a imagem
+  ImageResize(&fase_2, 1200, 1000);//redimensionado a imagem
+  Texture2D textura2 = LoadTextureFromImage(fase_2);//tranformando a imagem em uma textura
+  UnloadImage(fase_2);
+
+  Image naruto = LoadImage("Imagens/Sprite/NarutinhoParado.png");//abrindo a imagem
+  ImageResize(&naruto, 150, 150);//redimensionado a imagem
+  Texture2D naruto_parado = LoadTextureFromImage(naruto);//tranformando a imagem em uma textura
+  UnloadImage(naruto);//fechando a imagem
+
+  Image elimur = LoadImage("Imagens/Sprite/ElimurParado.png");//abrindo a imagem
+  ImageResize(&elimur, 300, 300);//redimensionado a imagem
+  Texture2D elimur_parado = LoadTextureFromImage(elimur);//tranformando a imagem em uma textura
+  UnloadImage(elimur);//fechando a imagem
+
+  Image narutoC = LoadImage("Imagens/Sprite/NarutinhoCorrendo.png");//abrindo a imagem
+  ImageResize(&narutoC, 150, 150);//redimensionado a imagem
+  Texture2D naruto_correndo = LoadTextureFromImage(narutoC);//tranformando a imagem em uma textura
+  UnloadImage(narutoC);//fechando a imagem
+
+  Image narutoF = LoadImage("Imagens/Sprite/NarutinhoFalando.png");//abrindo a imagem
+  ImageResize(&narutoF, 350, 350);//redimensionado a imagem
+  Texture2D naruto_falando = LoadTextureFromImage(narutoF);//tranformando a imagem em uma textura
+  UnloadImage(narutoF);//fechando a imagem
+
+  Image elimurF = LoadImage("Imagens/Sprite/ElimurDialogo.png");//abrindo a imagem
+  ImageResize(&elimurF, 350, 350);//redimensionado a imagem
+  Texture2D elimur_falando = LoadTextureFromImage(elimurF);//tranformando a imagem em uma textura
+  UnloadImage(elimurF);//fechando a imagem
+
+  Image caixa = LoadImage("Imagens/Caixas/DialogoNaruto.png");//abrindo a imagem
+  ImageResize(&caixa, 2420, 1800);//redimensionado a imagem
+  Texture2D caixaDialogo = LoadTextureFromImage(caixa);//tranformando a imagem em uma textura
+  UnloadImage(caixa);//fechando a imagem
+
+  Image buracoN = LoadImage("Imagens/Terreno/BuracoNegro.png");//abrindo a imagem
+  ImageResize(&buracoN, 500, 500);//redimensionado a imagem
+  Texture2D buraco_negro = LoadTextureFromImage(buracoN);//tranformando a imagem em uma textura
+  UnloadImage(buracoN);//fechando a imagem
+
+  InitAudioDevice();
+  Music mp3 = LoadMusicStream("Audio/BattleTrainerK.ogg");
+  PlayMusicStream(mp3);
+  
+  while(!WindowShouldClose()){//enquanto o usuario nao apertar esc a janela nao se fecha
+    
+    DrawText("Bem vindo ao jogo", 200, 50, 40, BLACK);
+    UpdateMusicStream(mp3);
+
+    BeginDrawing();//desenhando na tela
+    ClearBackground(RAYWHITE);//limpando o fundo
+    
+    switch(i){//controlando as fases
+        case 0://fase 1
+        DrawTexture(texture, 0, 0, WHITE);//desenhando o fundo da fase 1
+        DrawTexture(elimur_parado, 1000, 350, WHITE);//desenhado o vilao
+        
+        ClearBackground(BLACK);//limpando o fundo
+        
+        
+        if(poxicao_x > 300){//fazendo o personagem andar e parar quando chegar no ponto 200
+            DrawTexture(naruto_parado, poxicao_x - naruto_parado.width, 500, WHITE);
+        }else{//enqunato o personagem nao compri as condiçao ela nao vai parar
+            poxicao_x += 2.f; 
+            DrawTexture(naruto_correndo, poxicao_x - naruto_correndo.width, 500, WHITE);
+        }
+
+          switch(contador){//controlando os dialogos
+            case 0:
+                DrawTexture(caixaDialogo, 0, 215, WHITE);//desenhado a faixa de dialogo
+                DrawText("NARRADOR: Narutinho se vê preso em lugar totalmente desconhecido", 40, 900, 30, BLACK);
+                DrawText("uma energia diferente paira no ar", 40, 930, 30, BLACK);
+                if(IsKeyPressed(KEY_ENTER) && poxicao_x > 300){//quando o usuario apertar enter ele troca de dialogo
+                  contador = 1;
+                }//if
+            break;
+            case 1:
+                DrawTexture(caixaDialogo, 0, 215, WHITE);//desenhado a faixa de dialogo
+                DrawTexture(naruto_falando, -40, 500, WHITE);//desenhando o naruto na tela
+                DrawText("Narutinho: O que houve?? Onde estou?? Esse chakra… não espera", 40, 900, 30, BLACK); 
+                DrawText("acho que é Ki?! Será que eu virarei um Sayajin de nove caudas?!", 40, 930, 30, BLACK);
+                if(IsKeyPressed(KEY_ENTER)){ //quando o usuario apertar enter ele troca de dialogo 
+                contador = 2;
+                }//if
+            break;
+            case 2:
+                DrawTexture(caixaDialogo, 0, 215, WHITE);//desenhado a faixa de dialogo
+                DrawTexture(elimur_falando, 750, 500, WHITE);//desenhado o elimur na tela
+                DrawText("Elimur: Agora vou conquistar todos os universos finalmente,", 40, 880, 30, BLACK); 
+                DrawText("espero que o Narutinho erre esta palavras chave,", 40, 910, 30, BLACK);
+                DrawText("para que eu domine este universo.", 40, 940, 30, BLACK);
+                if(IsKeyPressed(KEY_ENTER)){ //quando o usuario apertar enter ele troca de dialogo 
+                contador = 3;
+                }//if
+            break;
+            case 3:
+                if(IsKeyPressed(KEY_ENTER)){ //quando o usuario apertar enter ele troca de dialogo 
+                contador = 4;
+                }
+            break;
+            case 4:
+                DrawTexture(texture, 0, 0, WHITE);//desenhando o fundo da fase 1
+                DrawTexture(buraco_negro, 800, 350, WHITE);
+                if(poxicao_x > 1000){
+                  contador = 0;
+                  i = 1;
+                  poxicao_x = 0.f;
+                }else{
+                  DrawTexture(naruto_correndo, poxicao_x - naruto_correndo.width, 500, WHITE);
+                  poxicao_x += 10.f;
+                } 
+            break;
+          }//switch
+        break;
+        case 1:
+          DrawTexture(textura2, 0, 0, WHITE);
+
+          if(poxicao_x > 300){//fazendo o personagem andar e parar quando chegar no ponto 200
+            DrawTexture(naruto_parado, poxicao_x - naruto_parado.width, 400, WHITE);
+          }else{//enqunato o personagem nao compri as condiçao ela nao vai parar
+            poxicao_x += 2.f; 
+            DrawTexture(naruto_correndo, poxicao_x - naruto_correndo.width, 400, WHITE);
+          }
+
+        switch(contador){
+          case 0:
+          break;
+        }
+      }//shitch
+      EndDrawing();
+  }//while
+    UnloadTexture(naruto_correndo);
+    UnloadTexture(naruto_parado);
+    UnloadTexture(texture);
+    UnloadMusicStream(mp3);
+    CloseAudioDevice();
+    CloseWindow();
+
+  return 0;
+  }//main
+
+
+
+
+  
