@@ -1,0 +1,43 @@
+# arquivos compilados
+*.exe
+*.out
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+
+# diretórios de build
+obj/
+bin/
+build/
+
+# arquivos temporários
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+*~
+
+# ides e editores
+.vscode/
+.vs/
+*.code-workspace
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# arquivos de backup
+*.bak
+*.backup
+
+# dados do usuário
+saves/
+*.dat
+*.bin
