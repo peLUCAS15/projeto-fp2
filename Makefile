@@ -9,17 +9,17 @@ BINNAME = hello
 
 ifeq ($(OS),Windows_NT)
 	INCLUDE = -I./include/ -L./libwin
-	EXTRA_FLAGS = -Wall -Werror -Wextra -std=c99 -Wno-missing-braces -lraylib -lm -lopengl32 -lgdi32 -lwinmm
+	EXTRA_FLAGS = -Wall -Wextra -std=c99 -Wno-missing-braces -lraylib -lm -lopengl32 -lgdi32 -lwinmm
 	BIN = $(BINNAME).exe
 	RM = del /Q /F
 else
 	INCLUDE=-I./include/ -L./lib
-	EXTRA_FLAGS = -Wall -Werror -Wextra -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+	EXTRA_FLAGS = -Wall -Wextra -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 	BIN =./$(BINNAME)
 	RM = rm -f
 endif
 
-SRC=./*.c
+SRC := $(wildcard src/*.c)
 
 all:
 	gcc $(SRC) -g $(INCLUDE) -o $(BIN) $(EXTRA_FLAGS)
