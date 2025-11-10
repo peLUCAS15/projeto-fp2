@@ -6,56 +6,56 @@
 bool carregarRecursosCinematica(RecursosCinematica *recursos){
     memset(recursos, 0, sizeof(RecursosCinematica));
 
-    int tamanho_x = 150;
-    int tamanho_y = 150;
-    int frame;
-
+    int tamanhoX_N = 150;
+    int tamanhoY_N = 150;
+    int largura = 1200;
+    int altura = 800; 
 
     if (FileExists("assets/imagens/Terreno/konoha.jpg")){
         Image img = LoadImage("assets/imagens/Terreno/konoha.jpg");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseNarutoTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Terreno/DragonBall.png")){
         Image img = LoadImage("assets/imagens/Terreno/DragonBall.png");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseDragonBallTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Terreno/OnePiece.png")){
         Image img = LoadImage("assets/imagens/Terreno/OnePiece.png");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseOnePieceTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Terreno/Hogwarts.png")){
         Image img = LoadImage("assets/imagens/Terreno/Hogwarts.png");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseHarryPotterTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Terreno/ResidentEvil.png")){
         Image img = LoadImage("assets/imagens/Terreno/ResidentEvil.png");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseResidentEvilTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Terreno/SilentHill.png")){
         Image img = LoadImage("assets/imagens/Terreno/SilentHill.png");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseSilentHillTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
 
     if (FileExists("assets/imagens/Terreno/Elimur.png")){
         Image img = LoadImage("assets/imagens/Terreno/Elimur.png");
-        ImageResize(&img, 1200, 800);
+        ImageResize(&img, largura, altura);
         recursos->faseFinalTerreno = LoadTextureFromImage(img);
         UnloadImage(img);
     }
@@ -63,42 +63,42 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
     // carrega sprites do narutinho
     if (FileExists("assets/imagens/Sprite/NarutinhoParado.png")){
         Image img = LoadImage("assets/imagens/Sprite/NarutinhoParado.png");
-        ImageResize(&img, tamanho_x, tamanho_y);
+        ImageResize(&img, tamanhoX_N, tamanhoY_N);
         recursos->narutoParado = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Sprite/NarutoAndando.png")){
         Image img = LoadImage("assets/imagens/Sprite/NarutoAndando.png");
-        ImageResize(&img, tamanho_x, tamanho_y);
+        ImageResize(&img, tamanhoX_N, tamanhoY_N);
         recursos->narutoAndando = LoadTextureFromImage(img);
         UnloadImage(img);
     }
 
     if (FileExists("assets/imagens/Sprite/NarutoAndandoL.png")){
         Image img = LoadImage("assets/imagens/Sprite/NarutoAndandoL.png");
-        ImageResize(&img, tamanho_x, tamanho_y);
+        ImageResize(&img, tamanhoX_N, tamanhoY_N);
         recursos->narutoAndandoL = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Sprite/NarutinhoCorrendo.png")){
         Image img = LoadImage("assets/imagens/Sprite/NarutinhoCorrendo.png");
-        ImageResize(&img, tamanho_x, tamanho_y);
+        ImageResize(&img, tamanhoX_N, tamanhoY_N);
         recursos->narutoCorrendo = LoadTextureFromImage(img);
         UnloadImage(img);
     }
 
     if (FileExists("assets/imagens/Sprite/NarutoCorrendoL.png")){
         Image img = LoadImage("assets/imagens/Sprite/NarutoCorrendoL.png");
-        ImageResize(&img, tamanho_x, tamanho_y);
+        ImageResize(&img, tamanhoX_N, tamanhoY_N);
         recursos->narutoCorrendoL = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
     if (FileExists("assets/imagens/Sprite/NarutoPulando.png")){
         Image img = LoadImage("assets/imagens/Sprite/NarutoPulando.png");
-        ImageResize(&img, tamanho_x, tamanho_y);
+        ImageResize(&img, tamanhoX_N, tamanhoY_N);
         recursos->narutoPulando = LoadTextureFromImage(img);
         UnloadImage(img);
     }
@@ -130,6 +130,27 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
         Image img = LoadImage("assets/imagens/Caixas/DialogoNaruto.png");
         ImageResize(&img, 2420, 1440);
         recursos->caixaDialogo = LoadTextureFromImage(img);
+        UnloadImage(img);
+    }
+
+    if (FileExists("assets/imagens/Sprite/Elimur_Revelado.png")){
+        Image img = LoadImage("assets/imagens/Sprite/Elimur_Revelado.png");
+        ImageResize(&img, largura / 2, altura - 100);
+        recursos->elimurRevelado = LoadTextureFromImage(img);
+        UnloadImage(img);
+    }
+
+    if (FileExists("assets/imagens/Sprite/Elimur_Mascara.png")){
+        Image img = LoadImage("assets/imagens/Sprite/Elimur_Mascara.png");
+        ImageResize(&img, largura / 2, altura - 100);
+        recursos->elimurMascara = LoadTextureFromImage(img);
+        UnloadImage(img);
+    }
+
+    if (FileExists("assets/imagens/Sprite/Elimur_TirandoM.png")){
+        Image img = LoadImage("assets/imagens/Sprite/Elimur_TirandoM.png");
+        ImageResize(&img, largura / 2, altura - 100);
+        recursos->elimurTirandoM = LoadTextureFromImage(img);
         UnloadImage(img);
     }
     
@@ -179,6 +200,9 @@ void descarregarRecursosCinematica(RecursosCinematica *recursos){
     UnloadTexture(recursos->elimurParado);
     UnloadTexture(recursos->elimurFalando);
     UnloadTexture(recursos->caixaDialogo);
+    UnloadTexture(recursos->elimurRevelado);
+    UnloadTexture(recursos->elimurMascara);
+    UnloadTexture(recursos->elimurTirandoM);
     UnloadTexture(recursos->buracoNegro);
     UnloadMusicStream(recursos->musicaOnePiece);
     UnloadMusicStream(recursos->musicaDeselec);
@@ -435,12 +459,15 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
     if (!estados->inicializadoTransicao){
         estados->narutoXTransicao = 260;
         estados->inicializadoTransicao = true;
+        estados->tempoTransicao = 0.0f;
+        estados->Transicao = 0.0f;
     }
     
     Texture2D terreno;
     float buracoX = 850;
     float buracoY[6];
     float narutoY[6];
+    float frame = 2.0f;   
     
     switch(fase){
         case 1:
@@ -473,25 +500,36 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
             buracoY[6] = 320;
             narutoY[6] = 430;
             break;
-        default:
+            default:
             return true;
-    }
-    
-    BeginDrawing();
-    ClearBackground(BLACK);
-    
-    DrawTexture(terreno, 0, 0, WHITE);
-    
-    for(int i = 1; i < 7; i++){
-        if(fase == i){
-            DrawTexture(recursos->buracoNegro, buracoX, buracoY[i], WHITE);
+        }
+
+        estados->tempoTransicao += GetFrameTime();
+
+        if(estados->tempoTransicao >= frame) {
+            estados->Transicao = (estados->Transicao + 1) % 3;
+            estados->tempoTransicao = 0;
+        }
+        
+        BeginDrawing();
+        ClearBackground(BLACK);
+        
+        DrawTexture(terreno, 0, 0, WHITE);
+
+        for(int i = 1; i < 7; i++){
+            if(fase == i){
+                DrawTexture(recursos->buracoNegro, buracoX, buracoY[i], WHITE);
             if(estados->narutoXTransicao < 0){
                 estados->narutoXTransicao *= -1.1;
             }
             if (estados->narutoXTransicao < 800){
                 if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_A)){
-                    DrawTexture(recursos->narutoAndando, estados->narutoXTransicao, narutoY[i], WHITE);
                     estados->narutoXTransicao += 5.0f;
+                    if(estados->Transicao == 0){
+                        DrawTexture(recursos->narutoAndando, estados->narutoXTransicao, narutoY[i], WHITE);
+                    }else{
+                        DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
+                    }
                 } else{
                     if(!IsKeyDown(KEY_A) && !IsKeyDown(KEY_LEFT_SHIFT)){
                         DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
@@ -515,14 +553,14 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
 
                 if(IsKeyDown(KEY_A) && IsKeyDown(KEY_D)){
                     DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
-                }   
-
-
+                } 
+        
             // centraliza o texto no topo
             const char *texto = "Pressione D para correr até o portal!";
             int larguraTexto = MeasureText(texto, 24);
             DrawText(texto, (GetScreenWidth() - larguraTexto) / 2, 30, 24, YELLOW);
             }
+
         }
     }
     

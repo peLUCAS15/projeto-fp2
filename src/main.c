@@ -407,7 +407,7 @@ int main(void){
                     estado.progressoFases[faseSelecionada - 1] = 2;
                     
                     // desbloqueia a próxima fase
-                    if (faseSelecionada < 7 && estado.progressoFases[faseSelecionada] == 0){
+                    if (faseSelecionada < 6 && estado.progressoFases[faseSelecionada] == 0){
                         estado.progressoFases[faseSelecionada] = 1;
                     }
                     
@@ -415,7 +415,7 @@ int main(void){
                     salvarProgresso(&estado);
                     
                     // transição terminou vai para o menu ou próxima fase
-                    if (faseSelecionada < 7){
+                    if (faseSelecionada < 6){
                         faseSelecionada++;
                         telaAtual = TELA_CINEMATICA; // próxima fase
                     } else{

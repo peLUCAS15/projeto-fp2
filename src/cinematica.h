@@ -22,6 +22,9 @@ typedef struct{
     Texture2D elimurParado;
     Texture2D elimurFalando;
     Texture2D caixaDialogo;
+    Texture2D elimurRevelado;
+    Texture2D elimurMascara;
+    Texture2D elimurTirandoM;
     Texture2D buracoNegro;
     Music musicaFundo;
     Music musicaDeselec;
@@ -46,6 +49,8 @@ typedef struct{
 typedef struct{
     EstadoCinematica estadoIntro;
     EstadoCinematica estadoTransicao;
+    float tempoTransicao;
+    int Transicao;
     float narutoXTransicao;
     bool inicializadoTransicao;
 } EstadoCinematicas;
