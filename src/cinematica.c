@@ -467,7 +467,7 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
     float buracoX = 850;
     float buracoY[6];
     float narutoY[6];
-    float frame = 2.0f;   
+    float frame = 0.2f;   
     
     switch(fase){
         case 1:
