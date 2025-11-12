@@ -56,7 +56,12 @@ OBJECTS = $(OBJ_DIR)/main.o $(OBJ_DIR)/palavras.o $(OBJ_DIR)/jogo.o $(OBJ_DIR)/i
 all: directories $(TARGET)
 	@echo "Compilacao concluida com sucesso!"
 	@echo "Sistema: $(DETECTED_OS)"
+
+ifeq ($(DETECTED_OS),Windows)
+	@echo "Execute com: mingw32-make run"
+else
 	@echo "Execute com: make run"
+endif
 
 # cria os diretórios necessários
 ifeq ($(DETECTED_OS),Windows)
@@ -112,8 +117,8 @@ run: all
 ifeq ($(DETECTED_OS),Windows)
 clean:
 	@echo "Limpando arquivos compilados..."
-	@if exist "$(OBJ_DIR)" rmdir /s /q "$(OBJ_DIR)"
-	@if exist "$(BIN_DIR)" rmdir /s /q "$(BIN_DIR)"
+	@cmd /c "if exist \"$(OBJ_DIR)\" rmdir /s /q \"$(OBJ_DIR)\""
+	@cmd /c "if exist \"$(BIN_DIR)\" rmdir /s /q \"$(BIN_DIR)\""
 	@echo "Limpeza concluida!"
 else
 clean:
@@ -154,5 +159,3 @@ help:
 	@echo "  make info   - Mostra informacoes do projeto"
 	@echo "  make help   - Mostra esta ajuda"
 	@echo "=========================================="
-
-.PHONY: all directories run clean rebuild info help

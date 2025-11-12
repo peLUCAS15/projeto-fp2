@@ -29,119 +29,121 @@ void carregarPalavrasIniciais(Palavra **lista, int *total){
     *lista = NULL;
     *total = 0;
     srand((unsigned int)time(NULL));
+   
+    // Fase 1 - DRAGON BALL 
 
-    // Fase 1 - DRAGON BALL
+    adicionarPalavraDireta(lista, total, "Goku", "Protagonista principal", 1, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Trunks", "Filho de Vegeta", 1, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Taiyoken", "Golpe de luz ofuscante", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Vados", "Anjo do Universo 6", 3, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Ki", "Energia vital usada em lutas", 1, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Gohan", "Filho de Goku", 1, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Whis", "Treinador dos deuses", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Jiren", "Guerreiro do Torneio do Poder", 3, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Nuvem", "Transporte voador de Goku", 2, "Dragon Ball"); 
+    adicionarPalavraDireta(lista, total, "Brinco", "Item usado na fusão Potara", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Masenko", "Golpe de energia de Gohan", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Poder", "Nível de força de um guerreiro", 3, "Dragon Ball"); 
+    adicionarPalavraDireta(lista, total, "Deus", "Seres superiores no universo", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Zarbon", "Soldado de Freeza", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Namekusei", "Planeta das esferas do dragão", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Bardock", "Pai de Goku", 1, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Bulma", "Gênio inventora da Corporação Cápsula", 1, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Conquistar", "Objetivo de muitos vilões", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Wukong", "Referência ao Rei Macaco", 3, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Anjos", "Assistentes dos deuses da destruição", 3, "Dragon Ball");
 
-    adicionarPalavraDireta(lista, total, "GOKU", "Protagonista principal", 1, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "TRUNKS", "Filho de Vegeta", 1, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "TAIYOKEN", "Golpe de luz ofuscante", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "VADOS", "Anjo do Universo 6", 3, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "KI", "Energia vital usada em lutas", 1, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "GOHAN", "Filho de Goku", 1, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "WHIS", "Treinador dos deuses", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "JIREN", "Guerreiro do Torneio do Poder", 3, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "FUSAO", "Técnica que une dois lutadores", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "BRINCO", "Item usado na fusão Potara", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "MASENKO", "Golpe de energia de Gohan", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "DESTRUICAO", "Poder dos deuses Hakaishin", 3, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "DEUS", "Seres superiores no universo", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "ZARBON", "Soldado de Freeza", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "NAMEKUSEI", "Planeta das esferas do dragão", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "BARDOCK", "Pai de Goku", 1, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "BULMA", "Gênio inventora da Corporação Cápsula", 1, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "CONQUISTAR", "Objetivo de muitos vilões", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "WUKONG", "Referência ao Rei Macaco", 3, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "ANJOS", "Assistentes dos deuses da destruição", 3, "Dragon Ball");
+    // Fase 2 - ONE PIECE 
 
-    // Fase 2 - ONE PIECE
+    adicionarPalavraDireta(lista, total, "Oda", "Criador do mangá One Piece", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Seraphim", "Armas humanas clonadas", 3, "One Piece");
+    adicionarPalavraDireta(lista, total, "Barco", "Principal meio de transporte dos piratas", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Haki", "Energia espiritual usada em combate", 2, "One Piece");
+    adicionarPalavraDireta(lista, total, "Logia", "Tipo de Akuma no Mi elementar", 3, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Jinbe", "Homem-peixe e aliado de Luffy", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Fruta", "Concede poderes especiais", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Garp", "Avô de Luffy", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Mar", "Onde os piratas navegam", 1, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Vinsmok", "Sobrenome do Sanji", 1, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Rayleigh", "Ex-membro do Roger Pirates", 2, "One Piece");
+    adicionarPalavraDireta(lista, total, "Ilha", "Local onde ocorrem as aventuras", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Rei", "Título sonhado por Luffy", 2, "One Piece");
+    adicionarPalavraDireta(lista, total, "Nami", "Navegadora da tripulação", 1, "One Piece");
+    adicionarPalavraDireta(lista, total, "Zoan", "Tipo de fruta que transforma o corpo", 2, "One Piece");
+    adicionarPalavraDireta(lista, total, "Sake", "Bebida favorita do espadachim", 1, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Ace", "Irmão de Luffy", 1, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Gomu", "Nome da fruta do protagonista", 1, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Sanji", "Cozinheiro da tripulação", 1, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Joya", "Lendária figura (Joya Boy)", 2, "One Piece"); 
 
-    adicionarPalavraDireta(lista, total, "ODA", "Criador do mangá One Piece", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "SERAPHIM", "Armas humanas clonadas", 3, "One Piece");
-    adicionarPalavraDireta(lista, total, "BARCO", "Principal meio de transporte dos piratas", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "HAKI", "Energia espiritual usada em combate", 2, "One Piece");
-    adicionarPalavraDireta(lista, total, "LUGIA", "Tipo de Akuma no Mi elementar", 3, "One Piece");
-    adicionarPalavraDireta(lista, total, "JINBE", "Homem-peixe e aliado de Luffy", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "FRUTA", "Concede poderes especiais", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "GARP", "Avô de Luffy", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "MAPA", "Guia das ilhas da Grand Line", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "CHAPEU", "Símbolo do protagonista Luffy", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "RAYLEIGH", "Ex-membro do Roger Pirates", 2, "One Piece");
-    adicionarPalavraDireta(lista, total, "ILHA", "Local onde ocorrem as aventuras", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "REI", "Título sonhado por Luffy", 2, "One Piece");
-    adicionarPalavraDireta(lista, total, "NAMI", "Navegadora da tripulação", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "ZOAN", "Tipo de fruta que transforma o corpo", 2, "One Piece");
-    adicionarPalavraDireta(lista, total, "ZORO", "Espadachim dos Chapéus de Palha", 1, "One Piece");
-    adicionarPalavraDireta(lista, total, "ACE", "Irmão de Luffy", 1, "One Piece");
+    // Fase 3 - HARRY POTTER 
 
-    // Fase 3 - HARRY POTTER
+    adicionarPalavraDireta(lista, total, "Luna", "Amiga excêntrica de Harry", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Snape", "Professor de Poções em Hogwarts", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Leviosa", "Feitiço de levitação", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Corvinal", "Casa conhecida pela inteligência", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Bruxo", "Usuário de magia", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Castelo", "Local onde fica Hogwarts", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Duelo", "Combate entre bruxos", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Visgo", "Planta mágica usada em poções", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Trasgo", "Criatura derrotada no primeiro filme", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Rony", "Melhor amigo de Harry", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Fenix", "Ave mágica que renasce das cinzas", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Draco", "Rival de Harry na Sonserina", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Beco", "Local de compras dos bruxos", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Tom", "Nome verdadeiro de Voldemort", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Floresta", "Local sombrio de Hogwarts", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Crucio", "Maldição imperdoável de tortura", 3, "Harry Potter"); 
+    adicionarPalavraDireta(lista, total, "Lumos", "Feitiço de iluminação", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Quadribol", "Esporte voando em vassouras", 2, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Trem", "Leva os alunos a Hogwarts", 1, "Harry Potter");
+    adicionarPalavraDireta(lista, total, "Hogwarts", "Escola de magia e bruxaria", 1, "Harry Potter");
 
-    adicionarPalavraDireta(lista, total, "LUNA", "Amiga excêntrica de Harry", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "SNAPE", "Professor de Poções em Hogwarts", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "LEVIOSA", "Feitiço de levitação", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "CORVINAL", "Casa conhecida pela inteligência", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "BRUXO", "Usuário de magia", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "CASTELO", "Local onde fica Hogwarts", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "DUELO", "Combate entre bruxos", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "VISGO", "Planta mágica usada em poções", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "TRASGO", "Criatura derrotada no primeiro filme", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "RONY", "Melhor amigo de Harry", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "FENIX", "Ave mágica que renasce das cinzas", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "DRACO", "Rival de Harry na Sonserina", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "BECO", "Local de compras dos bruxos", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "TOM", "Nome verdadeiro de Voldemort", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "FLORESTA", "Local sombrio de Hogwarts", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "IMPERIO", "Maldição imperdoável de controle", 3, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "LUMOS", "Feitiço de iluminação", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "QUADRIBOL", "Esporte voando em vassouras", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "TREM", "Leva os alunos a Hogwarts", 1, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "HOGWARTS", "Escola de magia e bruxaria", 1, "Harry Potter");
-
-    // Fase 4 - RESIDENT EVIL
-
-    adicionarPalavraDireta(lista, total, "ZUMBI", "Criatura infectada por vírus", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "VIRUS", "Causa da infecção no jogo", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "ERVA", "Usada para curar ferimentos", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "LEON", "Um dos protagonistas principais", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "CLAIRE", "Irmã de Chris Redfield", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "MUNICAO", "Essencial para sobreviver", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "RIFLE", "Arma de longo alcance", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "PISTOLA", "Arma comum no jogo", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "MIA", "Personagem do Resident Evil 7", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "JOIA", "Usada em enigmas e portas secretas", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "CHRIS", "Um dos heróis da franquia", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "ASHLEY", "Filha do presidente dos EUA", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "ETHAN", "Protagonista de Resident Evil 7 e 8", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "COFRE", "Usado para guardar itens", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "ENIGMA", "Desafio para abrir portas secretas", 3, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "SADLER", "Vilão de Resident Evil 4", 3, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "GEMAS", "Itens preciosos e colecionáveis", 2, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "BAU", "Onde o jogador guarda objetos", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "SPRAY", "Usado para restaurar vida", 1, "Resident Evil");
-    adicionarPalavraDireta(lista, total, "MOEDA", "Usada para trocas ou recompensas", 1, "Resident Evil");
+    // Fase 4 - RESIDENT EVIL 
+    adicionarPalavraDireta(lista, total, "Zumbi", "Criatura infectada por vírus", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Fuzil", "Arma de fogo longa e potente", 1, "Resident Evil"); 
+    adicionarPalavraDireta(lista, total, "Erva", "Usada para curar ferimentos", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Leon", "Um dos protagonistas principais", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Claire", "Irmã de Chris Redfield", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Chave", "Abre portas trancadas", 2, "Resident Evil"); 
+    adicionarPalavraDireta(lista, total, "Rifle", "Arma de longo alcance", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Pistola", "Arma comum no jogo", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Mia", "Personagem do Resident Evil 7", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Orbe", "Item esférico usado em puzzles", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Chris", "Um dos heróis da franquia", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Ashley", "Filha do presidente dos EUA", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Ethan", "Protagonista de Resident Evil 7 e 8", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Cofre", "Usado para guardar itens", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Enigma", "Desafio para abrir portas secretas", 3, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Sadler", "Vilão de Resident Evil 4", 3, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Gemas", "Itens preciosos e colecionáveis", 2, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Bau", "Onde o jogador guarda objetos", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Spray", "Usado para restaurar vida", 1, "Resident Evil");
+    adicionarPalavraDireta(lista, total, "Moeda", "Usada para trocas ou recompensas", 1, "Resident Evil");
 
     // Fase 5 - SILENT HILL
+    adicionarPalavraDireta(lista, total, "Nevoa", "Marca registrada da cidade", 1, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Cano", "Uma das primeiras armas brancas", 1, "Silent Hill"); 
+    adicionarPalavraDireta(lista, total, "Culto", "Grupo responsável por rituais sombrios", 2, "Silent Hill");  
+    adicionarPalavraDireta(lista, total, "Mary", "Esposa desaparecida de James", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "James", "Protagonista do segundo jogo", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Hotel", "Local icônico de Silent Hill 2", 1, "Silent Hill"); 
+    adicionarPalavraDireta(lista, total, "Lisa", "Enfermeira que aparece no primeiro jogo", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Mason", "Sobrenome do protagonista do SH1", 1, "Silent Hill"); 
+    adicionarPalavraDireta(lista, total, "Henry", "Protagonista de Silent Hill 4", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Lago", "Local central da cidade", 1, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Motel", "Cenário de encontros estranhos", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Guia", "Ajuda a compreender o caminho", 1, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Pyramid", "Monstro com máscara triangular", 3, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Hospital", "Lugar cheio de enfermeiras monstruosas", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Bruma", "Sinônimo da névoa da cidade", 2, "Silent Hill"); 
+    adicionarPalavraDireta(lista, total, "Velho", "Figura que representa o passado", 2, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Dogma", "Crença da ordem sombria", 2, "Silent Hill"); 
+    adicionarPalavraDireta(lista, total, "Surto", "Causa de terror psicológico", 3, "Silent Hill");
+    adicionarPalavraDireta(lista, total, "Culpa", "Sentimento central dos protagonistas", 1, "Silent Hill"); 
+    adicionarPalavraDireta(lista, total, "Cheryl", "Filha desaparecida de Harry", 2, "Silent Hill"); 
 
-    adicionarPalavraDireta(lista, total, "NEVOA", "Marca registrada da cidade", 1, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "RADIO", "Emite ruídos quando há monstros", 1, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "CULTO", "Grupo responsável por rituais sombrios", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "MARY", "Esposa desaparecida de James", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "JAMES", "Protagonista do segundo jogo", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "MAPA", "Ajuda a se localizar na neblina", 1, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "TINA", "Personagem que aparece em memórias", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "MASON", "Sobrenome de Harry Mason", 1, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "HENRY", "Protagonista de Silent Hill 4", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "LAGO", "Local central da cidade", 1, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "MOTEL", "Cenário de encontros estranhos", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "GUIA", "Ajuda a compreender o caminho", 1, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "PYRAMID", "Monstro com máscara triangular", 3, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "HOSPITAL", "Lugar cheio de enfermeiras monstruosas", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "PESADELO", "Realidade distorcida e assustadora", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "VELHO", "Figura que representa o passado", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "DOENCA", "Tema recorrente dos personagens", 2, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "SURTO", "Causa de terror psicológico", 3, "Silent Hill");
-    adicionarPalavraDireta(lista, total, "LIRIO", "Flor símbolo da cidade", 1, "Silent Hill");
-
-    adicionarPalavraDireta(lista, total, "MURIEL", "Nome", 3, "Final");
+    adicionarPalavraDireta(lista, total, "Muriel", "Nome", 3, "Final");
 }
 
 void liberarPalavras(Palavra *lista){
@@ -160,7 +162,7 @@ int carregarPalavrasCSV(Palavra **lista, int *total, const char *nomeArquivo){
     *lista = NULL;
     *total = 0;
     
-    char linha[257];
+    char linha[256];
     int primeiraLinha = 1;
     
     // lê o arquivo linha por linha

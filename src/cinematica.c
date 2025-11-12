@@ -467,7 +467,10 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
     float buracoX = 850;
     float buracoY[6];
     float narutoY[6];
-    float frame = 0.2f;   
+    float frame = 0.1f;   
+    float velocidade_Y = 0;
+    bool pulando = true;
+    float chao_Y = 300;
     
     switch(fase){
         case 1:
@@ -519,41 +522,54 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
         for(int i = 1; i < 7; i++){
             if(fase == i){
                 DrawTexture(recursos->buracoNegro, buracoX, buracoY[i], WHITE);
-            if(estados->narutoXTransicao < 0){
-                estados->narutoXTransicao *= -1.1;
-            }
-            if (estados->narutoXTransicao < 800){
-                if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_A)){
-                    estados->narutoXTransicao += 5.0f;
-                    if(estados->Transicao == 0){
-                        DrawTexture(recursos->narutoAndando, estados->narutoXTransicao, narutoY[i], WHITE);
-                    }else{
-                        DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
+                if(estados->narutoXTransicao < 0){
+                    estados->narutoXTransicao *= -1.1;
+                }
+                if (estados->narutoXTransicao < 800){
+                    if(IsKeyDown(KEY_SPACE) && pulando == true && estados->Transicao == 0){
+                        velocidade_Y = -12;
+                        pulando = false;
+                        velocidade_Y += 0.5f;
+                        narutoY[i] += velocidade_Y;
+                        estados->Transicao = 0;
+                        if(narutoY[i] >= chao_Y){
+                            narutoY[i] = chao_Y;
+                            velocidade_Y = 0;
+                            pulando = true;
+                        }
                     }
-                } else{
-                    if(!IsKeyDown(KEY_A) && !IsKeyDown(KEY_LEFT_SHIFT)){
-                        DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
+
+                    if (IsKeyDown(KEY_D) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_A)){
+                        estados->narutoXTransicao += 5.0f;
+                        if(estados->Transicao == 0){
+                            DrawTexture(recursos->narutoAndando, estados->narutoXTransicao, narutoY[i], WHITE);
+                        }else{
+                            DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
+                        }
+                    } else{
+                        if(!IsKeyDown(KEY_A) && !IsKeyDown(KEY_LEFT_SHIFT)){
+                            DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
+                        }
                     }
-                }
 
-                if(IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_A)){
-                    DrawTexture(recursos->narutoCorrendo, estados->narutoXTransicao, narutoY[i], WHITE);
-                    estados->narutoXTransicao += 10.0f;
-                }
+                    if(IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_A)){
+                        DrawTexture(recursos->narutoCorrendo, estados->narutoXTransicao, narutoY[i], WHITE);
+                        estados->narutoXTransicao += 10.0f;
+                    }
 
-                if(IsKeyDown(KEY_A) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_D)){
-                    DrawTexture(recursos->narutoAndandoL,  estados->narutoXTransicao, narutoY[i], WHITE);
-                    estados->narutoXTransicao -= 5.0f;
-                }
+                    if(IsKeyDown(KEY_A) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_D)){
+                        DrawTexture(recursos->narutoAndandoL,  estados->narutoXTransicao, narutoY[i], WHITE);
+                        estados->narutoXTransicao -= 5.0f;
+                    }
 
-                if(IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_D)){
-                    DrawTexture(recursos->narutoCorrendoL,  estados->narutoXTransicao, narutoY[i], WHITE);
-                    estados->narutoXTransicao -= 10.0f;
-                }
+                    if(IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_D)){
+                        DrawTexture(recursos->narutoCorrendoL,  estados->narutoXTransicao, narutoY[i], WHITE);
+                        estados->narutoXTransicao -= 10.0f;
+                    }
 
-                if(IsKeyDown(KEY_A) && IsKeyDown(KEY_D)){
-                    DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
-                } 
+                    if(IsKeyDown(KEY_A) && IsKeyDown(KEY_D)){
+                        DrawTexture(recursos->narutoParado, estados->narutoXTransicao, narutoY[i], WHITE);
+                    } 
         
             // centraliza o texto no topo
             const char *texto = "Pressione D para correr até o portal!";
