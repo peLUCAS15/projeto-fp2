@@ -42,7 +42,7 @@ int adicionarLetra(EstadoJogo *estado, char letra){
     
     // não vai deixar digitar letra que já foi testada e tá errada
     int indiceLetra = letra - 'A';
-    if (estado->teclado[indiceLetra] == letraErrada) return 0;
+    if (estado->teclado[indiceLetra] == letraErrada)  return 0;
     
     // não vai deixar digitar a mesma letra duas vezes
     for (int i = 0; i < estado->posEntrada; i++){

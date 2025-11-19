@@ -231,7 +231,6 @@ int main(void){
     EstadoTela telaAtual = TELA_MENU_INICIAL;
     int faseSelecionada = 1;
     int opcaoMenuSelecionada = 0;
-    
     // loop principal
     while (!WindowShouldClose() && telaAtual != TELA_SAIR){
         
@@ -329,17 +328,19 @@ int main(void){
                 processarEntrada(&estado, &estadoInterface.teclado);
                 
                 Texture2D terrenoFase;
+                Music musicaFase;
                 switch(faseSelecionada){
-                    case 1: terrenoFase = recursosCinematica.faseDragonBallTerreno; break;
-                    case 2: terrenoFase = recursosCinematica.faseOnePieceTerreno; break;
-                    case 3: terrenoFase = recursosCinematica.faseHarryPotterTerreno; break;
-                    case 4: terrenoFase = recursosCinematica.faseResidentEvilTerreno; break;
-                    case 5: terrenoFase = recursosCinematica.faseSilentHillTerreno; break;
-                    case 6: terrenoFase = recursosCinematica.faseFinalTerreno; break;
-                    default: terrenoFase = (Texture2D){0}; break;
+                    case 1: terrenoFase = recursosCinematica.fases[1]; musicaFase = recursosCinematica.trilhaSonora[2]; break;
+                    case 2: terrenoFase = recursosCinematica.fases[2]; musicaFase = recursosCinematica.trilhaSonora[3]; break;
+                    case 3: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
+                    case 4: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
+                    case 5: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
+                    case 6: terrenoFase = recursosCinematica.fases[6]; break;
+                    default: terrenoFase = (Texture2D){0}; musicaFase = (Music){0}; break;
                 }
                 
                 desenharJogo(&estado, terrenoFase, &estadoInterface);
+                UpdateMusicStream(musicaFase);
                 
                 if (estado.venceu || estado.perdeu){
                     telaAtual = TELA_RESULTADO;
@@ -360,17 +361,19 @@ int main(void){
             
             case TELA_RESULTADO:{
                 Texture2D terrenoFase;
+                Music musicaFase;
                 switch(faseSelecionada){
-                    case 1: terrenoFase = recursosCinematica.faseDragonBallTerreno; break;
-                    case 2: terrenoFase = recursosCinematica.faseOnePieceTerreno; break;
-                    case 3: terrenoFase = recursosCinematica.faseHarryPotterTerreno; break;
-                    case 4: terrenoFase = recursosCinematica.faseResidentEvilTerreno; break;
-                    case 5: terrenoFase = recursosCinematica.faseSilentHillTerreno; break;
-                    case 6: terrenoFase = recursosCinematica.faseFinalTerreno; break;
-                    default: terrenoFase = (Texture2D){0}; break;
+                    case 1: terrenoFase = recursosCinematica.fases[1]; musicaFase = recursosCinematica.trilhaSonora[2]; break;
+                    case 2: terrenoFase = recursosCinematica.fases[2]; musicaFase = recursosCinematica.trilhaSonora[3]; break;
+                    case 3: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
+                    case 4: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
+                    case 5: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
+                    case 6: terrenoFase = recursosCinematica.fases[6]; break;
+                    default: terrenoFase = (Texture2D){0}; musicaFase = (Music){0}; break;
                 }
                 
                 desenharJogo(&estado, terrenoFase, &estadoInterface);
+                UpdateMusicStream(musicaFase);
                 
                 // aguarda o usuário apertar espaco para continuar
                 if (IsKeyPressed(KEY_SPACE)){
