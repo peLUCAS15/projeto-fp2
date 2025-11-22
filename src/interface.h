@@ -28,7 +28,8 @@ void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado);
 void inicializarTeclado(TecladoVirtual *teclado);
 char verificarCliqueTeclado(TecladoVirtual *teclado, Vector2 posicaoMouse);
 void desenharBackground(int fase);
-void desenharDica(const char *dica);
+void desenharDica(EstadoJogo *estado);
+void desenharCronometro(EstadoJogo *estado);
 void desenharMensagemFinal(EstadoJogo *estado);
 int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo);
 

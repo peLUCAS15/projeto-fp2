@@ -13,6 +13,10 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
     estado->venceu = 0;
     estado->perdeu = 0;
     estado->faseAtual = fase;
+    estado->tempoEsgotado = 0;
+    
+    // fase 6 (Elimur) libera dica automaticamente
+    estado->dicaRevelada = (fase == 6) ? 1 : 0;
     
     // define número máximo de tentativas por fase
     if (fase <= 2){
@@ -20,6 +24,16 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
     } else{
         estado->maxTentativasPermitidas = maxTentativasDificil; // 3 tentativas
     }
+    
+    // define o tempo inicial baseado na fase
+    if (fase == 6){
+        // fase final (Elimur) tem 30 segundos
+        estado->tempoInicial = 30.0f;
+    } else{
+        // fases 1-5: 120s, 110s, 100s, 90s, 80s
+        estado->tempoInicial = 120.0f - ((fase - 1) * 10.0f);
+    }
+    estado->tempoRestante = estado->tempoInicial;
     
     // inicializa o teclado
     for (int i = 0; i < 26; i++){
@@ -204,4 +218,31 @@ void resetarProgresso(EstadoJogo *estado){
         estado->progressoFases[i] = 0;
     }
     salvarProgresso(estado);
+}
+
+void atualizarTempo(EstadoJogo *estado, float deltaTime){
+    if (estado->venceu || estado->perdeu || estado->tempoEsgotado) return;
+    
+    estado->tempoRestante -= deltaTime;
+    
+    if (estado->tempoRestante <= 0.0f){
+        estado->tempoRestante = 0.0f;
+        estado->tempoEsgotado = 1;
+        estado->perdeu = 1;
+    }
+}
+
+void revelarDica(EstadoJogo *estado){
+    if (estado->dicaRevelada) return; // já revelada
+    if (estado->faseAtual == 6) return; // fase do Elimur é grátis
+    
+    estado->dicaRevelada = 1;
+    
+    // aplica punição de 20 segundos
+    estado->tempoRestante -= 20.0f;
+    if (estado->tempoRestante < 0.0f){
+        estado->tempoRestante = 0.0f;
+        estado->tempoEsgotado = 1;
+        estado->perdeu = 1;
+    }
 }

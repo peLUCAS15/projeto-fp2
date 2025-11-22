@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "interface.h"
 
 void inicializarInterface(EstadoInterface *estadoInterface){
@@ -35,16 +36,84 @@ void desenharBackground(int fase){
     }
 }
 
-void desenharDica(const char *dica){
-    // desenha caixa de dica 
-    int largura = MeasureText(dica, 20) + 40;
-    if (largura > GetScreenWidth() - 100) largura = GetScreenWidth() - 100;
-    int x = (GetScreenWidth() - largura) / 2;
+void desenharDica(EstadoJogo *estado){
+    if (estado == NULL || estado->palavraAtual == NULL) return;
     
-    DrawRectangle(x, 20, largura, 50, (Color){30, 30, 30, 240});
-    DrawRectangleLines(x, 20, largura, 50, YELLOW);
-    DrawText("DICA:", x + 10, 25, 18, YELLOW);
-    DrawText(dica, x + 10, 45, 16, WHITE);
+    const char *dica = estado->palavraAtual->dica;
+    int x = (GetScreenWidth() - 400) / 2;
+    
+    if (estado->dicaRevelada){
+        // desenha a dica revelada
+        int largura = MeasureText(dica, 20) + 40;
+        if (largura > GetScreenWidth() - 100) largura = GetScreenWidth() - 100;
+        x = (GetScreenWidth() - largura) / 2;
+        
+        DrawRectangle(x, 20, largura, 50, (Color){30, 30, 30, 240});
+        DrawRectangleLines(x, 20, largura, 50, YELLOW);
+        DrawText("DICA:", x + 10, 25, 18, YELLOW);
+        DrawText(dica, x + 10, 45, 16, WHITE);
+    } else{
+        // desenha botão para revelar dica
+        int largura = 400;
+        x = (GetScreenWidth() - largura) / 2;
+        
+        Rectangle botaoDica = {x, 20, largura, 50};
+        Vector2 posicaoMouse = GetMousePosition();
+        bool hover = CheckCollisionPointRec(posicaoMouse, botaoDica);
+        
+        Color corFundo = hover ? (Color){50, 50, 50, 240} : (Color){30, 30, 30, 240};
+        Color corBorda = hover ? WHITE : YELLOW;
+        
+        DrawRectangle(botaoDica.x, botaoDica.y, botaoDica.width, botaoDica.height, corFundo);
+        DrawRectangleLines(botaoDica.x, botaoDica.y, botaoDica.width, botaoDica.height, corBorda);
+        
+        const char *texto = "CLIQUE PARA REVELAR DICA (-20s)";
+        int larguraTexto = MeasureText(texto, 18);
+        DrawText(texto, x + (largura - larguraTexto) / 2, 35, 18, YELLOW);
+        
+        // verifica clique
+        if (hover && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            revelarDica(estado);
+        }
+    }
+}
+
+void desenharCronometro(EstadoJogo *estado){
+    if (estado == NULL) return;
+    
+    int minutos = (int)(estado->tempoRestante) / 60;
+    int segundos = (int)(estado->tempoRestante) % 60;
+    
+    // define a cor baseada no tempo restante
+    Color corTempo;
+    if (estado->tempoRestante <= 10.0f){
+        // vermelho piscando quando <= 10 segundos
+        float blink = (sinf(GetTime() * 8.0f) + 1.0f) / 2.0f;
+        corTempo = (Color){255, (unsigned char)(50 * blink), (unsigned char)(50 * blink), 255};
+    } else if (estado->tempoRestante <= 30.0f){
+        corTempo = ORANGE; // laranja quando <= 30 segundos
+    } else{
+        corTempo = YELLOW; // amarelo quando tem bastante tempo
+    }
+    
+    // formata o texto do cronômetro
+    const char *textoTempo = TextFormat("%02d:%02d", minutos, segundos);
+    
+    // posiciona no canto superior direito
+    int tamanhoFonte = 50;
+    int larguraTexto = MeasureText(textoTempo, tamanhoFonte);
+    int x = GetScreenWidth() - larguraTexto - 40;
+    int y = 20;
+    
+    // desenha o tempo (apenas o texto, sem bordas ou fundo)
+    DrawText(textoTempo, x, y, tamanhoFonte, corTempo);
+    
+    // desenha mensagem se o tempo acabou
+    if (estado->tempoEsgotado){
+        int larguraMensagem = MeasureText("TEMPO ESGOTADO!", 60);
+        int xMensagem = (GetScreenWidth() - larguraMensagem) / 2;
+        DrawText("TEMPO ESGOTADO!", xMensagem, GetScreenHeight() / 2 - 100, 60, RED);
+    }
 }
 
 void desenharGrid(EstadoJogo *estado, int x, int y){
@@ -248,6 +317,7 @@ char verificarCliqueTeclado(TecladoVirtual *teclado, Vector2 posicaoMouse){
 }
 
 void desenharMensagemFinal(EstadoJogo *estado){
+    if (estado == NULL || estado->palavraAtual == NULL) return;
     if (!estado->venceu && !estado->perdeu) return;
     
     // camada overlay escura
@@ -321,6 +391,9 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     Vector2 posicaoMouse = GetMousePosition();
     bool clicou = IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
     
+    // verificação de segurança
+    if (estado == NULL) return -1;
+    
     for (int i = 0; i < 6; i++){
         int y = 100 + i * 95;
         Rectangle botao ={GetScreenWidth() / 2 - 300, y, 600, 75};
@@ -393,7 +466,10 @@ void desenharJogo(EstadoJogo *estado, Texture2D terrenoFase, EstadoInterface *es
     
     desenharBackground(estado->faseAtual);
     
-    desenharDica(estado->palavraAtual->dica);
+    if (estado != NULL && estado->palavraAtual != NULL){
+        desenharDica(estado);
+        desenharCronometro(estado);
+    }
     desenharGrid(estado, 100, 200);
     
     if (!estadoInterface->tecladoInicializado){

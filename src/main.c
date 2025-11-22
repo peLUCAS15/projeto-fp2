@@ -325,6 +325,9 @@ int main(void){
             }
             
             case TELA_JOGO:{
+                // atualiza o cronômetro
+                atualizarTempo(&estado, GetFrameTime());
+                
                 processarEntrada(&estado, &estadoInterface.teclado);
                 
                 Texture2D terrenoFase;

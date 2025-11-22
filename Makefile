@@ -1,3 +1,4 @@
+
 # detecta o sistema operacional
 ifeq ($(OS),Windows_NT)
     DETECTED_OS := Windows
@@ -65,10 +66,10 @@ endif
 # cria os diretórios necessários
 ifeq ($(DETECTED_OS),Windows)
 directories:
-	@if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
-	@if not exist $(BIN_DIR) mkdir $(BIN_DIR)
-	@if not exist assets\imagens mkdir assets\imagens
-	@if not exist assets\audio mkdir assets\audio
+	-@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)" 2>nul || echo.
+	-@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)" 2>nul || echo.
+	-@if not exist "assets\imagens" mkdir "assets\imagens" 2>nul || echo.
+	-@if not exist "assets\audio" mkdir "assets\audio" 2>nul || echo.
 else
 directories:
 	@mkdir -p $(OBJ_DIR)
