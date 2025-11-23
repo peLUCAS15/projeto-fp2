@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 typedef struct{
+    int monitor;
     Texture2D fases[15];
     Texture2D sprites[12];
     Music trilhaSonora[7];
@@ -20,16 +21,20 @@ typedef struct{
     float narutoX;
     float narutoY;
     bool correndo;
-    bool pulando;
     bool cinematicaAtiva;
     bool aguardandoJogo;
     bool inicializado;
 } EstadoCinematica;
 
 typedef struct{
+    bool pulando;
     EstadoCinematica estadoIntro;
     EstadoCinematica estadoTransicao;
     float tempoFinal;
+    float tempoAnimacao;
+    float tempoPulo;
+    int pulo;
+    int animacao;
     int final;
     float narutoXTransicao;
     bool inicializadoTransicao;

@@ -33,12 +33,18 @@ typedef struct{
     int faseAtual;
     int progressoFases[6];
     int maxTentativasPermitidas;
+    float tempoRestante;
+    float tempoInicial;
+    int tempoEsgotado;
+    int dicaRevelada;
 } EstadoJogo;
 
 void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase);
 int adicionarLetra(EstadoJogo *estado, char letra);
 int removerLetra(EstadoJogo *estado);
 int fazerTentativa(EstadoJogo *estado);
+void atualizarTempo(EstadoJogo *estado, float deltaTime);
+void revelarDica(EstadoJogo *estado);
 Palavra* selecionarPalavraAleatoria(Palavra *lista, int total, const char *tema);
 void salvarProgresso(EstadoJogo *estado);
 void carregarProgresso(EstadoJogo *estado);

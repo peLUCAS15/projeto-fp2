@@ -13,6 +13,10 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
     estado->venceu = 0;
     estado->perdeu = 0;
     estado->faseAtual = fase;
+    estado->tempoEsgotado = 0;
+    
+    // fase 6 (Elimur) libera dica automaticamente
+    estado->dicaRevelada = (fase == 7) ? 1 : 0;
     
     // define número máximo de tentativas por fase
     if (fase <= 2){
@@ -21,6 +25,16 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
         estado->maxTentativasPermitidas = maxTentativasDificil; // 3 tentativas
     }
     
+    // define o tempo inicial baseado na fase
+    if (fase == 7){
+        // fase final (Elimur) tem 30 segundos
+        estado->tempoInicial = 30.0f;
+    } else{
+        // fases 1-5: 120s, 110s, 100s, 90s, 80s
+        estado->tempoInicial = 120.0f - ((fase - 1) * 10.0f);
+    }
+    estado->tempoRestante = estado->tempoInicial;
+    
     // inicializa o teclado
     for (int i = 0; i < 26; i++){
         estado->teclado[i] = letraNaoUsada;
@@ -28,7 +42,7 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
     
     // inicializa progresso das fases (primeira fase sempre liberada)
     estado->progressoFases[0] = 1; // Liberada
-    for (int i = 1; i < 6; i++){
+    for (int i = 2; i < 6; i++){
         estado->progressoFases[i] = 0; // Bloqueada
     }
 }
@@ -126,7 +140,7 @@ int fazerTentativa(EstadoJogo *estado){
     if (todasCorretas){
         estado->venceu = 1;
         // libera próxima fase 
-        if (estado->faseAtual < 6 && estado->progressoFases[estado->faseAtual] == 0){
+        if (estado->faseAtual < 7 && estado->progressoFases[estado->faseAtual] == 0){
             estado->progressoFases[estado->faseAtual] = 1; // libera próxima    
         }
         estado->progressoFases[estado->faseAtual - 1] = 2; // marca como concluída  
@@ -180,7 +194,7 @@ void salvarProgresso(EstadoJogo *estado){
         return;
     }
     
-    fwrite(estado->progressoFases, sizeof(int), 6, arquivo);
+    fwrite(estado->progressoFases, sizeof(int), 7, arquivo);
     fclose(arquivo);
 }
 
@@ -188,20 +202,47 @@ void carregarProgresso(EstadoJogo *estado){
     FILE *arquivo = fopen("progresso.dat", "rb");
     if (arquivo == NULL){
         estado->progressoFases[0] = 1;
-        for (int i = 1; i < 6; i++){
+        for (int i = 1; i < 7; i++){
             estado->progressoFases[i] = 0;
         }
         return;
     }
     
-    fread(estado->progressoFases, sizeof(int), 6, arquivo);
+    fread(estado->progressoFases, sizeof(int), 7, arquivo);
     fclose(arquivo);
 }
 
 void resetarProgresso(EstadoJogo *estado){
     estado->progressoFases[0] = 1;
-    for (int i = 1; i < 6; i++){
+    for (int i = 1; i < 7; i++){
         estado->progressoFases[i] = 0;
     }
     salvarProgresso(estado);
+}
+
+void atualizarTempo(EstadoJogo *estado, float deltaTime){
+    if (estado->venceu || estado->perdeu || estado->tempoEsgotado) return;
+    
+    estado->tempoRestante -= deltaTime;
+    
+    if (estado->tempoRestante <= 0.0f){
+        estado->tempoRestante = 0.0f;
+        estado->tempoEsgotado = 1;
+        estado->perdeu = 1;
+    }
+}
+
+void revelarDica(EstadoJogo *estado){
+    if (estado->dicaRevelada) return; // já revelada
+    if (estado->faseAtual == 7) return; // fase do Elimur é grátis
+    
+    estado->dicaRevelada = 1;
+    
+    // aplica punição de 20 segundos
+    estado->tempoRestante -= 20.0f;
+    if (estado->tempoRestante < 0.0f){
+        estado->tempoRestante = 0.0f;
+        estado->tempoEsgotado = 1;
+        estado->perdeu = 1;
+    }
 }

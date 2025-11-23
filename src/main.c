@@ -19,6 +19,7 @@ typedef enum{
 } EstadoTela;
 
 const char *temasFases[] ={
+    "Naruto",
     "Dragon Ball",
     "One Piece",
     "Harry Potter",
@@ -300,15 +301,19 @@ int main(void){
             case TELA_CINEMATICA:{
                 // executa cinemática de introdução da fase
                 if (executarCinematicaIntro(&recursosCinematica, faseSelecionada, &estadosCinematicas)){
-                    Palavra *palavra = selecionarPalavraAleatoria(
-                        listaPalavras, 
-                        totalPalavras, 
-                        temasFases[faseSelecionada - 1]
-                    );
-                    
-                    if (palavra != NULL){
-                        inicializarJogo(&estado, palavra, faseSelecionada);
-                        telaAtual = TELA_JOGO;
+                    if(faseSelecionada != 1){
+                        Palavra *palavra = selecionarPalavraAleatoria(
+                            listaPalavras, 
+                            totalPalavras, 
+                            temasFases[faseSelecionada - 1]
+                        );
+                        
+                        if (palavra != NULL){
+                            inicializarJogo(&estado, palavra, faseSelecionada);
+                            telaAtual = TELA_JOGO;
+                        }
+                    }else{
+                        telaAtual = TELA_TRANSICAO;
                     }
                 }
                 
@@ -325,17 +330,20 @@ int main(void){
             }
             
             case TELA_JOGO:{
+                // atualiza o cronômetro
+                atualizarTempo(&estado, GetFrameTime());
+                
                 processarEntrada(&estado, &estadoInterface.teclado);
                 
                 Texture2D terrenoFase;
                 Music musicaFase;
                 switch(faseSelecionada){
-                    case 1: terrenoFase = recursosCinematica.fases[1]; musicaFase = recursosCinematica.trilhaSonora[2]; break;
-                    case 2: terrenoFase = recursosCinematica.fases[2]; musicaFase = recursosCinematica.trilhaSonora[3]; break;
-                    case 3: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
-                    case 4: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
-                    case 5: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
-                    case 6: terrenoFase = recursosCinematica.fases[6]; break;
+                    case 2: terrenoFase = recursosCinematica.fases[1]; musicaFase = recursosCinematica.trilhaSonora[2]; break;
+                    case 3: terrenoFase = recursosCinematica.fases[2]; musicaFase = recursosCinematica.trilhaSonora[3]; break;
+                    case 4: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
+                    case 5: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
+                    case 6: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
+                    case 7: terrenoFase = recursosCinematica.fases[6]; break;
                     default: terrenoFase = (Texture2D){0}; musicaFase = (Music){0}; break;
                 }
                 
@@ -363,12 +371,12 @@ int main(void){
                 Texture2D terrenoFase;
                 Music musicaFase;
                 switch(faseSelecionada){
-                    case 1: terrenoFase = recursosCinematica.fases[1]; musicaFase = recursosCinematica.trilhaSonora[2]; break;
-                    case 2: terrenoFase = recursosCinematica.fases[2]; musicaFase = recursosCinematica.trilhaSonora[3]; break;
-                    case 3: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
-                    case 4: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
-                    case 5: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
-                    case 6: terrenoFase = recursosCinematica.fases[6]; break;
+                    case 2: terrenoFase = recursosCinematica.fases[1]; musicaFase = recursosCinematica.trilhaSonora[2]; break;
+                    case 3: terrenoFase = recursosCinematica.fases[2]; musicaFase = recursosCinematica.trilhaSonora[3]; break;
+                    case 4: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
+                    case 5: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
+                    case 6: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
+                    case 7: terrenoFase = recursosCinematica.fases[6]; break;
                     default: terrenoFase = (Texture2D){0}; musicaFase = (Music){0}; break;
                 }
                 
@@ -410,7 +418,7 @@ int main(void){
                     estado.progressoFases[faseSelecionada - 1] = 2;
                     
                     // desbloqueia a próxima fase
-                    if (faseSelecionada < 6 && estado.progressoFases[faseSelecionada] == 0){
+                    if (faseSelecionada < 7 && estado.progressoFases[faseSelecionada] == 0){
                         estado.progressoFases[faseSelecionada] = 1;
                     }
                     
@@ -418,7 +426,7 @@ int main(void){
                     salvarProgresso(&estado);
                     
                     // transição terminou vai para o menu ou próxima fase
-                    if (faseSelecionada < 6){
+                    if (faseSelecionada < 7){
                         faseSelecionada++;
                         telaAtual = TELA_CINEMATICA; // próxima fase
                     } else{
