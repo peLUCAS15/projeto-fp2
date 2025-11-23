@@ -1,3 +1,4 @@
+﻿
 # detecta o sistema operacional
 ifeq ($(OS),Windows_NT)
     DETECTED_OS := Windows
@@ -62,8 +63,20 @@ else
 	@echo "Execute com: make run"
 endif
 
+# cria os diretórios necessários
+ifeq ($(DETECTED_OS),Windows)
 directories:
-	@mkdir -p $(OBJ_DIR) $(BIN_DIR) assets/imagens assets/audio
+	-@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)" 2>nul || echo.
+	-@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)" 2>nul || echo.
+	-@if not exist "assets\imagens" mkdir "assets\imagens" 2>nul || echo.
+	-@if not exist "assets\audio" mkdir "assets\audio" 2>nul || echo.
+else
+directories:
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(BIN_DIR)
+	@mkdir -p assets/imagens
+	@mkdir -p assets/audio
+endif
 
 # compila o executável
 $(TARGET): $(OBJECTS)

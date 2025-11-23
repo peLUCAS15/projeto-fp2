@@ -30,7 +30,7 @@ void desenharBackground(int fase){
     
     // desenha indicador de fase
     const char *temas[] ={"DRAGON BALL", "ONE PIECE", "HARRY POTTER", "RESIDENT EVIL", "SILENT HILL", "FINAL"};
-    if (fase >= 2 && fase <= 6){
+    if (fase >= 1 && fase <= 6){
         DrawText(TextFormat("FASE %d: %s", fase, temas[fase - 1]), 
                  30, 20, 28, YELLOW);
     }
@@ -376,7 +376,7 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     
     const char *titulo = "SELECIONE UMA FASE";
     int larguraTitulo = MeasureText(titulo, 46);
-    DrawText(titulo, ((GetScreenWidth() - larguraTitulo) / 2) + 60, 30, 32, YELLOW);
+    DrawText(titulo, (GetScreenWidth() - larguraTitulo) / 2, 45, 46, YELLOW);
     
     const char *nomesFases[] ={
         "FASE 0 : NARUTO",
@@ -392,11 +392,8 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     Vector2 posicaoMouse = GetMousePosition();
     bool clicou = IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
     
-    // verificação de segurança
-    if (estado == NULL) return -1;
-    
     for (int i = 0; i < 7; i++){
-        int y = 70 + i * 95;
+        int y = 50 + i * 95;
         Rectangle botao ={GetScreenWidth() / 2 - 300, y, 600, 75};
         
         Color cor = DARKGRAY;
@@ -429,7 +426,7 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     }
     
     // botão de resetar progresso
-    int yResetar = 240 + 5 * 95 + 20;
+    int yResetar = 220 + 5 * 95 + 20;
     Rectangle botaoResetar ={GetScreenWidth() / 2 - 200, yResetar, 400, 60};
     
     Color corResetar = (Color){150, 50, 50, 255};
@@ -446,6 +443,10 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     const char *textoResetar = "RESETAR PROGRESSO";
     int larguraResetar = MeasureText(textoResetar, 24);
     DrawText(textoResetar, (GetScreenWidth() - larguraResetar) / 2, yResetar + 18, 24, WHITE);
+    
+    const char *textoESC = "ESC - Para voltar ao menu inicial";
+    int larguraTextoESC = MeasureText(textoESC, 18);
+    DrawText(textoESC, (GetScreenWidth() - larguraTextoESC) / 2, GetScreenHeight() - 10, 18, GRAY);
     
     return faseSelecionada;
 }
