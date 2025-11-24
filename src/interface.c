@@ -29,8 +29,8 @@ void desenharBackground(int fase){
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), (Color){0, 0, 0, 80});
     
     // desenha indicador de fase
-    const char *temas[] ={"DRAGON BALL", "ONE PIECE", "HARRY POTTER", "RESIDENT EVIL", "SILENT HILL", "FINAL"};
-    if (fase >= 1 && fase <= 6){
+    const char *temas[] ={"NARUTO", "DRAGON BALL", "ONE PIECE", "HARRY POTTER", "RESIDENT EVIL", "SILENT HILL", "FINAL"};
+    if (fase >= 1 && fase <= 7){
         DrawText(TextFormat("FASE %d: %s", fase, temas[fase - 1]), 
                  30, 20, 28, YELLOW);
     }

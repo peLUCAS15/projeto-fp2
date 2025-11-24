@@ -344,7 +344,7 @@ int main(void){
                     case 4: terrenoFase = recursosCinematica.fases[3]; musicaFase = recursosCinematica.trilhaSonora[4]; break;
                     case 5: terrenoFase = recursosCinematica.fases[4]; musicaFase = recursosCinematica.trilhaSonora[5]; break;
                     case 6: terrenoFase = recursosCinematica.fases[5]; musicaFase = recursosCinematica.trilhaSonora[6]; break;
-                    case 7: terrenoFase = recursosCinematica.fases[6]; break;
+                    case 7: terrenoFase = recursosCinematica.fases[6]; musicaFase = recursosCinematica.trilhaSonora[7]; break;
                     default: terrenoFase = (Texture2D){0}; musicaFase = (Music){0}; break;
                 }
                 

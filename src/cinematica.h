@@ -7,8 +7,8 @@
 typedef struct{
     int monitor;
     Texture2D fases[16];
-    Texture2D sprites[14];
-    Music trilhaSonora[7];
+    Texture2D sprites[17];
+    Music trilhaSonora[8];
     bool carregado;
 } RecursosCinematica;
 
