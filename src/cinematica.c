@@ -9,8 +9,8 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
 
     int tamanhoX_P = 150; int tamanhoY_P = 150;
     int largura = 1200; int altura = 800;
-    char terrenos[15][100];
-    char sprite[12][100];
+    char terrenos[16][100];
+    char sprite[14][100];
     char musica[7][100];
     float volume = 0.5f;
     int i;
@@ -24,13 +24,14 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
     strcpy(terrenos[5],"assets/imagens/Terreno/SilentHill.png");
     strcpy(terrenos[6],"assets/imagens/Terreno/Elimur.png");
     strcpy(terrenos[7],"assets/imagens/Caixas/DialogoNaruto.png");
-    strcpy(terrenos[8],"assets/imagens/Terreno/BuracoNegro.png");
+    strcpy(terrenos[8],"assets/imagens/Terreno/BuracoNegroNovo.png");
     strcpy(terrenos[9],"assets/imagens/Terreno/FinalExplosao1.png");
     strcpy(terrenos[10],"assets/imagens/Terreno/FinalExplosao2.png");
     strcpy(terrenos[11],"assets/imagens/Terreno/FinalExplosao3.png");
     strcpy(terrenos[12],"assets/imagens/Terreno/FinalExplosao4.png");
     strcpy(terrenos[13],"assets/imagens/Terreno/AntesDFim.png");
-    strcpy(terrenos[14],"assets/imagens/Terreno/Final.png");
+    strcpy(terrenos[14],"assets/imagens/Terreno/final.png");
+    strcpy(terrenos[15],"assets/imagens/Terreno/Revelacao.png");
 
     //copiando os caminhos das imagens
     strcpy(sprite[0],"assets/imagens/Sprite/NarutinhoParado.png");
@@ -45,6 +46,9 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
     strcpy(sprite[9],"assets/imagens/Sprite/Elimur_Revelado.png");
     strcpy(sprite[10],"assets/imagens/Sprite/Elimur_Mascara.png");
     strcpy(sprite[11],"assets/imagens/Sprite/Elimur_TirandoM.png");
+    strcpy(sprite[12],"assets/imagens/Sprite/Muriel.png");
+    strcpy(sprite[13],"assets/imagens/Sprite/MurielDialogo.png");
+
 
     //copiando os caminhos das imagens
     strcpy(musica[0],"assets/audio/Select.WAV");
@@ -57,14 +61,14 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
 
 
     //carregando os terreno das fases
-    for(i = 0; i < 15; i++){
+    for(i = 0; i < 16; i++){
         largura = 1200; altura = 800;
 
         if(strcmp(terrenos[i], "assets/imagens/Caixas/DialogoNaruto.png") == 0){
             largura = 2420; altura = 1440;//mudando o tamanho
         }//if
 
-        if(strcmp(terrenos[i], "assets/imagens/Terreno/BuracoNegro.png") == 0){
+        if(strcmp(terrenos[i], "assets/imagens/Terreno/BuracoNegroNovo.png") == 0){
             largura = 350; altura = 350;//mudando o tamanho
         }//if
 
@@ -81,14 +85,15 @@ bool carregarRecursosCinematica(RecursosCinematica *recursos){
     }//for
 
     // carrega sprites do narutinho
-    for(i = 0; i < 12; i++){
+    for(i = 0; i < 14; i++){
         tamanhoX_P = 150; tamanhoY_P = 150;
 
-        if(strcmp(sprite[i], "assets/imagens/Sprite/ElimurParado.png") == 0){
+        if(strcmp(sprite[i], "assets/imagens/Sprite/ElimurParado.png") == 0 || strcmp(sprite[i], "assets/imagens/Sprite/Muriel.png") == 0){
             tamanhoX_P = 300; tamanhoY_P = 300;//mudando o tamanho
         }//if
         
-        if(strcmp(sprite[i], "assets/imagens/Sprite/NarutinhoFalando.png") == 0 || strcmp(sprite[i], "assets/imagens/Sprite/ElimurDialogo.png") == 0){
+        if(strcmp(sprite[i], "assets/imagens/Sprite/NarutinhoFalando.png") == 0 ||
+        strcmp(sprite[i], "assets/imagens/Sprite/ElimurDialogo.png") == 0 ||  strcmp(sprite[i],"assets/imagens/Sprite/MurielDialogo.png") == 0){
             tamanhoX_P = 240; tamanhoY_P = 240;//mudando o tamanho
         }//if
 
@@ -127,13 +132,13 @@ void descarregarRecursosCinematica(RecursosCinematica *recursos){
     if (!recursos->carregado) return;
     
     // Libera todas as texturas de fases (imagens de fundo da cinemática)
-    for(int i = 0; i < 15; i++){
+    for(int i = 0; i < 16; i++){
         UnloadTexture(recursos->fases[i]);  
         // Cada LoadTextureFromImage ou LoadTexture deve ser descarregado aqui
     }//for
 
     // Libera todas as texturas dos sprites do naruto/elimur/etc
-    for(int i = 0; i < 12; i++){
+    for(int i = 0; i < 14; i++){
         UnloadTexture(recursos->sprites[i]);  
         // Sempre descarregue texturas que você carregou com LoadTexture / LoadTextureFromImage
     }//for
@@ -222,9 +227,16 @@ const char* dialogos_fase6[] ={
 };//char
 
 const char* dialogos_fase7[] ={
-    "NARRADOR: E assim, o maior vilão de todos os mundos se revelou... |um professor esquecido com uma péssima escolha de codinome."
-    "Agora, Narutinho precisa decidir: |punir Muriel? Perdoar? Ou... apenas rir?"
-    "MURIEL: Se eu prometer voltar pra dar aula... |posso apagar meus crimes com um jutsu de perdão?"
+    "NARUTO: M-Muriel?! Mas... tu dava aula de engenharia de jutsus!!!|Sempre chegava animado e cheio de energia???",
+    "MURIEL: Exato, Narutinho. Dava aula... e era ignorado.|Ninguém quis ouvir minha tese sobre os universos paralelos.",
+    "MURIEL: Todos riram quando falei do multiverso!|Até a Tsunade me tirou da chamada de vídeo!",
+    "MURIEL: Mas eu descobri... um chakra perdido.|Um chakra que me permitiu viajar... e me tornar Elimur.",
+    "(Naruto interrompe)",
+    "NARUTO: Espera... Elimur... é anagrama de Muriel?!",
+    "MURIEL: ...Não tive muito tempo pra pensar no nome, tá?",
+    "NARRADOR: E assim, o maior vilão de todos os mundos se revelou...|um professor esquecido com uma péssima escolha de codinome.",
+    "NARRADOR: Agora, Narutinho precisa decidir: |punir Muriel? Perdoar? Ou... apenas rir?",
+    "MURIEL: Se eu prometer voltar pra dar aula... |posso apagar meus crimes com um jutsu de perdão?",
     "NARUTO: Só se parar de passar dever no feriado!"
 };//char
 
@@ -237,9 +249,19 @@ bool executarCinematicaIntro(RecursosCinematica *recursos, int fase, EstadoCinem
     Texture2D terreno;
     const char **dialogos;
     int numeroDialogos;
-    float narutoBaseY[8];//posiçao do naruto para cada fase
-    float elimurBaseY[8];//posiçao do elimur para cada fase
+    float narutoBaseY[9];//posiçao do naruto para cada fase
+    float elimurBaseY[9];//posiçao do elimur para cada fase
     int i;
+    float cenaDestruicao = 1.0f;
+
+
+    estados->tempoDestruicao += GetFrameTime();
+
+   if (estados->tempoDestruicao >= cenaDestruicao) {
+        if (estados->destruicao < 7) estados->destruicao++;     // vai de 0 até 5
+        estados->tempoDestruicao = 0;
+    }
+
 
     //carregando as trilhas sonoras para cada fase
     for(i = 1; i < 7; i++){
@@ -302,17 +324,28 @@ bool executarCinematicaIntro(RecursosCinematica *recursos, int fase, EstadoCinem
          case 8:
             terreno = recursos->fases[14];
             dialogos = dialogos_fase7;
-            numeroDialogos = 4;
-            narutoBaseY[8] = 570; 
+            numeroDialogos = 11;
+            narutoBaseY[8] = 470; 
+            elimurBaseY[8] = 320;
             break;
         default:
             return true;
     }//switch
     
+
+    if (fase != 8) {
     // naruto entrando
-    if (estados->estadoIntro.narutoX < 400 && fase != 3){
-        estados->estadoIntro.narutoX += 6.0f;
-    }//if
+        if (estados->estadoIntro.narutoX < 400 && fase != 3){
+            estados->estadoIntro.narutoX += 6.0f;
+        }//if
+    }else{
+        if(fase == 8 && estados->destruicao >= 7)
+            if (estados->estadoIntro.narutoX < 400 && fase != 3){
+            estados->estadoIntro.narutoX += 6.0f;
+        }//i
+    }
+
+
 
     //naruto entrando na fase 3 
     if (estados->estadoIntro.narutoX > 300 && estados->estadoIntro.narutoX < 400 && fase == 3){
@@ -331,16 +364,28 @@ bool executarCinematicaIntro(RecursosCinematica *recursos, int fase, EstadoCinem
     BeginDrawing();//inicinado o desenho
     ClearBackground(BLACK);//limpando o funto
     
-
+    
     DrawTexture(terreno, 0, 0, WHITE);
-
     //carregando o elimur em cada fase
-    for(int i = 1; i < 8; i++){
-        if(fase == i) DrawTexture(recursos->sprites[6], 850, elimurBaseY[i], WHITE);
+    for(int i = 1; i < 9; i++){
+        if(fase != 8 && fase == i) DrawTexture(recursos->sprites[6], 850, elimurBaseY[i], WHITE);
     }
     
+     if(fase == 8){
+        switch(estados->destruicao){//fazendo a animaçao final
+            case 1: DrawTexture(recursos->fases[9], 0, 0, WHITE); break;
+            case 2: DrawTexture(recursos->fases[10], 0, 0, WHITE); break;
+            case 3: DrawTexture(recursos->fases[11], 0, 0, WHITE); break;
+            case 4: DrawTexture(recursos->fases[12], 0, 0, WHITE); break;
+            case 5: DrawTexture(recursos->fases[13], 0, 0, WHITE); break;
+            case 6: DrawTexture(recursos->fases[14], 0, 0, WHITE); break;
+            case 7: DrawTexture(recursos->sprites[12], 850, elimurBaseY[8], WHITE); break;
+        }//switch
+    }//if
+
+    
     //carregando as sprites para cada fase e cada movimento
-    for(int i = 1; i < 8; i++){
+    for(int i = 1; i < 9; i++){
         if(fase == i){
             if (estados->estadoIntro.narutoX < 400 && fase != 3){
                 DrawTexture(recursos->sprites[3], estados->estadoIntro.narutoX - recursos->sprites[3].width, narutoBaseY[i], WHITE);
@@ -376,15 +421,16 @@ bool executarCinematicaIntro(RecursosCinematica *recursos, int fase, EstadoCinem
         
         // identifica quem está falando
         bool narutoFala = (strncmp(dialogo, "NARUTO", 6) == 0 || strncmp(dialogo, "Narutinho", 9) == 0);
-        bool elimurFala = (strncmp(dialogo, "ELIMUR", 6) == 0 || strncmp(dialogo, "Elimur", 6) == 0);
+        bool elimurFala = (strncmp(dialogo, "ELIMUR", 6) == 0 || strncmp(dialogo, "MURIEL", 6) == 0);
         
         // desenha o personagem que está falando 
         if (narutoFala){
             DrawTexture(recursos->sprites[7], 20, 440, WHITE);
-        } else if (elimurFala){
+        } else if (elimurFala && fase != 8){
             DrawTexture(recursos->sprites[8], 880, 440, WHITE);
+        } else if (elimurFala && fase == 8){
+            DrawTexture(recursos->sprites[13], 880, 440, WHITE);
         }
-        
         // desenha o texto do diálogo 
         char buffer[500];
         strcpy(buffer, dialogo);
@@ -435,27 +481,20 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
     
     Texture2D terreno;
     float buracoX = 850;
-    float buracoY[6];
-    float narutoY[7];
-    float cenaFinal = 1.0f;
+    float buracoY[8];
+    float narutoY[8];
     float andando = 0.15f;
     float pulando = 1.15f;
+    float cenaFinal = 1.0f;
 
    // Atualiza todos os temporizadores usando o delta time do frame
     estados->tempoPulo += GetFrameTime();// Tempo decorrido desde o último frame para controlar animação de pulo
-    estados->tempoFinal += GetFrameTime();// Tempo para avançar cenas finais
     estados->tempoAnimacao += GetFrameTime();// Tempo para animar personagem andando
+    estados->tempoFinal += GetFrameTime();
 
-    // Controle das cenas finais
-    if (estados->tempoFinal >= cenaFinal) { // Se passou tempo suficiente...
+     if (estados->tempoFinal >= cenaFinal) { // Se passou tempo suficiente...
         estados->final++; // Avança para o próximo estágio da cena
         estados->tempoFinal = 0;// Reseta o temporizador para começar a contar de novo
-    }//if
-
-    // Quando estiver na fase 7, verifica se deve ir para a fase 8
-    if (fase == 7) {
-        if (estados->final >= 8)                
-            fase = 8;                           
     }//if
 
     // Controle da animação de "andar"
@@ -476,7 +515,7 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
         case 1:
             UpdateMusicStream(recursos->trilhaSonora[1]);
             terreno = recursos->fases[0];
-            buracoY[1] = 280;
+            buracoY[1] = 380;
             narutoY[1] = 520;
             break;
         case 2:
@@ -526,25 +565,23 @@ bool executarCinematicaTransicao(RecursosCinematica *recursos, int fase, EstadoC
         ClearBackground(BLACK);//limpando o fundo
         
         DrawTexture(terreno, 0, 0, WHITE);
+
+         // Quando estiver na fase 7, verifica se deve ir para a fase 3
         
         //indentificando a fase
         for(int i = 1; i < 9; i++){
             if(fase == 7){
+                if(estados->final <= 2) DrawTexture(recursos->fases[15], 0, 0, WHITE);
                 switch(estados->final){//fazendo a animaçao final
                     case 0: DrawTexture(recursos->sprites[10], 300, 100, WHITE); break;
                     case 1: DrawTexture(recursos->sprites[11], 300, 100, WHITE); break;
                     case 2: DrawTexture(recursos->sprites[9], 300, 100, WHITE); break;
-                    case 3: DrawTexture(recursos->fases[9], 0, 0, WHITE); break;
-                    case 4: DrawTexture(recursos->fases[10], 0, 0, WHITE); break;
-                    case 5: DrawTexture(recursos->fases[11], 0, 0, WHITE); break;
-                    case 6: DrawTexture(recursos->fases[12], 0, 0, WHITE); break;
-                    case 7: DrawTexture(recursos->fases[13], 0, 0, WHITE); break;
                 }//switch
-            }//if
-            if(fase == 8) DrawTexture(recursos->fases[14], 0, 0, WHITE);//ao chagar no frame 8 troca de fase
 
-            if(fase == i && fase != 7){
-                if(fase != 7 && fase != 8) DrawTexture(recursos->fases[8], buracoX, buracoY[i], WHITE);//nao desenha o buraco negro na ultima fase
+            }//if
+
+            if(fase == i){
+                DrawTexture(recursos->fases[8], buracoX, buracoY[i], WHITE);//nao desenha o buraco negro na ultima fase
 
                 if (IsKeyDown(KEY_SPACE)) {// só ativa 1 vez por toque
                     estados->pulo = 0;// frame inicial do pulo

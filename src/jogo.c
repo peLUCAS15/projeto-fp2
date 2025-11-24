@@ -140,7 +140,7 @@ int fazerTentativa(EstadoJogo *estado){
     if (todasCorretas){
         estado->venceu = 1;
         // libera próxima fase 
-        if (estado->faseAtual < 7 && estado->progressoFases[estado->faseAtual] == 0){
+        if (estado->faseAtual < 8 && estado->progressoFases[estado->faseAtual] == 0){
             estado->progressoFases[estado->faseAtual] = 1; // libera próxima    
         }
         estado->progressoFases[estado->faseAtual - 1] = 2; // marca como concluída  

@@ -25,7 +25,8 @@ const char *temasFases[] ={
     "Harry Potter",
     "Resident Evil",
     "Silent Hill",
-    "Final"
+    "Final",
+    "Epilogo"
 };
 
 
@@ -418,7 +419,7 @@ int main(void){
                     estado.progressoFases[faseSelecionada - 1] = 2;
                     
                     // desbloqueia a próxima fase
-                    if (faseSelecionada < 7 && estado.progressoFases[faseSelecionada] == 0){
+                    if (faseSelecionada < 8 && estado.progressoFases[faseSelecionada] == 0){
                         estado.progressoFases[faseSelecionada] = 1;
                     }
                     
@@ -426,7 +427,7 @@ int main(void){
                     salvarProgresso(&estado);
                     
                     // transição terminou vai para o menu ou próxima fase
-                    if (faseSelecionada < 7){
+                    if (faseSelecionada < 8){
                         faseSelecionada++;
                         telaAtual = TELA_CINEMATICA; // próxima fase
                     } else{

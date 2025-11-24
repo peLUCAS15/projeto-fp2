@@ -6,12 +6,9 @@
 
 typedef struct{
     int monitor;
-    Texture2D fases[15];
-    Texture2D sprites[12];
+    Texture2D fases[16];
+    Texture2D sprites[14];
     Music trilhaSonora[7];
-    Texture2D elimurRevelado;
-    Texture2D elimurMascara;
-    Texture2D elimurTirandoM;
     bool carregado;
 } RecursosCinematica;
 
@@ -33,9 +30,11 @@ typedef struct{
     float tempoFinal;
     float tempoAnimacao;
     float tempoPulo;
+    float tempoDestruicao;
     int pulo;
     int animacao;
     int final;
+    int destruicao;
     float narutoXTransicao;
     bool inicializadoTransicao;
 } EstadoCinematicas;
