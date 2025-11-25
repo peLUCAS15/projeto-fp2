@@ -1,4 +1,3 @@
-GOKU,Protagonista principal,1,Dragon Ball
 TRUNKS,Filho de Vegeta,1,Dragon Ball
 TAIYOKEN,Golpe de luz ofuscante,2,Dragon Ball
 VADOS,Anjo do Universo 6,3,Dragon Ball
@@ -12,7 +11,7 @@ MASENKO,Golpe de energia de Gohan,2,Dragon Ball
 PODER,Nível de força de um guerreiro,3,Dragon Ball
 DEUS,Seres superiores no universo,2,Dragon Ball
 ZARBON,Soldado de Freeza,2,Dragon Ball
-NAMEKUSEI,Planeta das esferas do dragão,2,Dragon Ball
+BROLY,Lendário Super Saiyajin,2,Dragon Ball
 BARDOCK,Pai de Goku,1,Dragon Ball
 BULMA,Gênio inventora da Corporação Cápsula,1,Dragon Ball
 CONQUISTAR,Objetivo de muitos vilões,2,Dragon Ball
@@ -37,7 +36,7 @@ SAKE,Bebida favorita do espadachim,1,One Piece
 ACE,Irmão de Luffy,1,One Piece
 GOMU,Nome da fruta do protagonista,1,One Piece
 SANJI,Cozinheiro da tripulação,1,One Piece
-JOYA,Lendária figura (Joya Boy),2,One Piece
+NIKA,Deus do sol,2,One Piece
 LUNA,Amiga excêntrica de Harry,1,Harry Potter
 SNAPE,Professor de Poções em Hogwarts,1,Harry Potter
 LEVIOSA,Feitiço de levitação,1,Harry Potter
@@ -53,7 +52,7 @@ DRACO,Rival de Harry na Sonserina,1,Harry Potter
 BECO,Local de compras dos bruxos,2,Harry Potter
 TOM,Nome verdadeiro de Voldemort,2,Harry Potter
 FLORESTA,Local sombrio de Hogwarts,2,Harry Potter
-CRUCIO,Maldição imperdoável de tortura,3,Harry Potter
+HAGRID,Guarda-caça e guardião das chaves de Hogwarts,2,Harry Potter
 LUMOS,Feitiço de iluminação,1,Harry Potter
 QUADRIBOL,Esporte voando em vassouras,2,Harry Potter
 TREM,Leva os alunos a Hogwarts,1,Harry Potter
@@ -98,4 +97,4 @@ DOGMA,Crença da ordem sombria,2,Silent Hill
 SURTO,Causa de terror psicológico,3,Silent Hill
 CULPA,Sentimento central dos protagonistas,1,Silent Hill
 CHERYL,Filha desaparecida de Harry,2,Silent Hill
-MURIEL,Nome,3,Final
+MURIEL,Um nome? Um anagrama?,3,Final

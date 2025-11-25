@@ -29,9 +29,7 @@ typedef struct{
     EstadoCinematica estadoTransicao;
     float tempoFinal;
     float tempoAnimacao;
-    float tempoPulo;
     float tempoDestruicao;
-    int pulo;
     int animacao;
     int final;
     int destruicao;

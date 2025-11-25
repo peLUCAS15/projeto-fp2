@@ -9,20 +9,20 @@ void adicionarPalavraDireta(Palavra **lista, int *total, char *palavra, char *di
     if (!temp){
         fprintf(stderr, "Erro de alocação de memória!\n");
         return;
-    }
+    }//if
     *lista = temp;
     strcpy((*lista)[*total].palavra, palavra);
     strcpy((*lista)[*total].dica, dica);
     (*lista)[*total].dificuldade = dificuldade;
     strcpy((*lista)[*total].tema, tema);
     (*total)++;
-}
+}//adicionarPalavraDireta
 
 void carregarPalavrasIniciais(Palavra **lista, int *total){
     // tenta carregar o csv
     if (carregarPalavrasCSV(lista, total, "assets/palavras.csv")){
         return; // carregou o csv
-    }
+    }//if
     
     // Se não der, usa as palavras padrão para carregar
     printf("Carregando palavras padrão ...\n");
@@ -46,7 +46,7 @@ void carregarPalavrasIniciais(Palavra **lista, int *total){
     adicionarPalavraDireta(lista, total, "Poder", "Nível de força de um guerreiro", 3, "Dragon Ball"); 
     adicionarPalavraDireta(lista, total, "Deus", "Seres superiores no universo", 2, "Dragon Ball");
     adicionarPalavraDireta(lista, total, "Zarbon", "Soldado de Freeza", 2, "Dragon Ball");
-    adicionarPalavraDireta(lista, total, "Namekusei", "Planeta das esferas do dragão", 2, "Dragon Ball");
+    adicionarPalavraDireta(lista, total, "Broly", "Lendário Super Saiyajin", 2, "Dragon Ball");
     adicionarPalavraDireta(lista, total, "Bardock", "Pai de Goku", 1, "Dragon Ball");
     adicionarPalavraDireta(lista, total, "Bulma", "Gênio inventora da Corporação Cápsula", 1, "Dragon Ball");
     adicionarPalavraDireta(lista, total, "Conquistar", "Objetivo de muitos vilões", 2, "Dragon Ball");
@@ -74,7 +74,7 @@ void carregarPalavrasIniciais(Palavra **lista, int *total){
     adicionarPalavraDireta(lista, total, "Ace", "Irmão de Luffy", 1, "One Piece"); 
     adicionarPalavraDireta(lista, total, "Gomu", "Nome da fruta do protagonista", 1, "One Piece"); 
     adicionarPalavraDireta(lista, total, "Sanji", "Cozinheiro da tripulação", 1, "One Piece"); 
-    adicionarPalavraDireta(lista, total, "Joya", "Lendária figura (Joya Boy)", 2, "One Piece"); 
+    adicionarPalavraDireta(lista, total, "Nika", "Deus do sol", 2, "One Piece"); 
 
     // Fase 3 - HARRY POTTER 
 
@@ -93,13 +93,14 @@ void carregarPalavrasIniciais(Palavra **lista, int *total){
     adicionarPalavraDireta(lista, total, "Beco", "Local de compras dos bruxos", 2, "Harry Potter");
     adicionarPalavraDireta(lista, total, "Tom", "Nome verdadeiro de Voldemort", 2, "Harry Potter");
     adicionarPalavraDireta(lista, total, "Floresta", "Local sombrio de Hogwarts", 2, "Harry Potter");
-    adicionarPalavraDireta(lista, total, "Crucio", "Maldição imperdoável de tortura", 3, "Harry Potter"); 
+    adicionarPalavraDireta(lista, total, "Hagrid", "Guarda-caça e guardião das chaves de Hogwarts", 2, "Harry Potter");
     adicionarPalavraDireta(lista, total, "Lumos", "Feitiço de iluminação", 1, "Harry Potter");
     adicionarPalavraDireta(lista, total, "Quadribol", "Esporte voando em vassouras", 2, "Harry Potter");
     adicionarPalavraDireta(lista, total, "Trem", "Leva os alunos a Hogwarts", 1, "Harry Potter");
     adicionarPalavraDireta(lista, total, "Hogwarts", "Escola de magia e bruxaria", 1, "Harry Potter");
 
     // Fase 4 - RESIDENT EVIL 
+
     adicionarPalavraDireta(lista, total, "Zumbi", "Criatura infectada por vírus", 1, "Resident Evil");
     adicionarPalavraDireta(lista, total, "Fuzil", "Arma de fogo longa e potente", 1, "Resident Evil"); 
     adicionarPalavraDireta(lista, total, "Erva", "Usada para curar ferimentos", 1, "Resident Evil");
@@ -122,6 +123,7 @@ void carregarPalavrasIniciais(Palavra **lista, int *total){
     adicionarPalavraDireta(lista, total, "Moeda", "Usada para trocas ou recompensas", 1, "Resident Evil");
 
     // Fase 5 - SILENT HILL
+
     adicionarPalavraDireta(lista, total, "Nevoa", "Marca registrada da cidade", 1, "Silent Hill");
     adicionarPalavraDireta(lista, total, "Cano", "Uma das primeiras armas brancas", 1, "Silent Hill"); 
     adicionarPalavraDireta(lista, total, "Culto", "Grupo responsável por rituais sombrios", 2, "Silent Hill");  
@@ -143,36 +145,31 @@ void carregarPalavrasIniciais(Palavra **lista, int *total){
     adicionarPalavraDireta(lista, total, "Culpa", "Sentimento central dos protagonistas", 1, "Silent Hill"); 
     adicionarPalavraDireta(lista, total, "Cheryl", "Filha desaparecida de Harry", 2, "Silent Hill"); 
 
-    adicionarPalavraDireta(lista, total, "Muriel", "Nome", 3, "Final");
-}
+    // FINAL
+
+    adicionarPalavraDireta(lista, total, "Muriel", "Um nome? Um anagrama?", 3, "Final");
+}//carregarPalavrasIniciais
 
 void liberarPalavras(Palavra *lista){
     if (lista != NULL){
         free(lista);
-    }
-}
+    }//if
+}//liberarPalavras
 
 int carregarPalavrasCSV(Palavra **lista, int *total, const char *nomeArquivo){
     FILE *arquivo = fopen(nomeArquivo, "r");
     if (!arquivo){
         fprintf(stderr, "Aviso: Não foi possível abrir %s. Usando palavras padrão.\n", nomeArquivo);
         return 0;
-    }
+    }//if
     
     *lista = NULL;
     *total = 0;
     
     char linha[256];
-    int primeiraLinha = 1;
     
     // lê o arquivo linha por linha
     while (fgets(linha, sizeof(linha), arquivo)){
-        // Pula o cabeçalho
-        if (primeiraLinha){
-            primeiraLinha = 0;
-            continue;
-        }
-        
         // remove o \n do final
         linha[strcspn(linha, "\r\n")] = 0;
         
@@ -205,15 +202,110 @@ int carregarPalavrasCSV(Palavra **lista, int *total, const char *nomeArquivo){
         
         // adiciona a palavra à lista
         adicionarPalavraDireta(lista, total, palavra, dica, dificuldade, tema);
-    }
+    }//while
     
     fclose(arquivo);
     
     if (*total == 0){
         fprintf(stderr, "Aviso: Nenhuma palavra carregada do CSV. Usando palavras padrão\n");
         return 0;
-    }
+    }//if
     
     printf("Carregadas %d palavras do arquivo %s\n", *total, nomeArquivo);
     return 1;
-}
+}//carregarPalavrasCSV
+
+// Função para salvar palavras no CSV
+int salvarPalavrasCSV(Palavra *lista, int total, const char *nomeArquivo) {
+    FILE *arquivo = fopen(nomeArquivo, "w");
+    if (!arquivo) {
+        fprintf(stderr, "Erro: Não foi possível abrir %s para escrita.\n", nomeArquivo);
+        return 0;
+    }//if
+    
+    for (int i = 0; i < total; i++) {
+        fprintf(arquivo, "%s,%s,%d,%s\n", 
+                lista[i].palavra, lista[i].dica, lista[i].dificuldade, lista[i].tema);
+    }//for
+    
+    fclose(arquivo);
+    printf("Arquivo %s salvo com sucesso! (%d palavras)\n", nomeArquivo, total);
+    return 1;
+}//salvarPalavrasCSV
+
+// Função para buscar uma palavra na lista
+int buscarPalavra(Palavra *lista, int total, const char *palavra) {
+    for (int i = 0; i < total; i++) {
+        if (_stricmp(lista[i].palavra, palavra) == 0) {
+            return i; // retorna o índice da palavra encontrada
+        }//if
+    }//for
+    return -1; // palavra não encontrada
+}//buscarPalavra
+
+// Função para remover uma palavra da lista
+void removerPalavra(Palavra **lista, int *total, int indice) {
+    if (indice < 0 || indice >= *total) {
+        printf("Índice inválido!\n");
+        return;
+    }//if
+    
+    // move todas as palavras após o índice uma posição para trás
+    for (int i = indice; i < *total - 1; i++) {
+        strcpy((*lista)[i].palavra, (*lista)[i + 1].palavra);
+        strcpy((*lista)[i].dica, (*lista)[i + 1].dica);
+        (*lista)[i].dificuldade = (*lista)[i + 1].dificuldade;
+        strcpy((*lista)[i].tema, (*lista)[i + 1].tema);
+    }//for
+    
+    (*total)--;
+    
+    // realoca a memória para o novo tamanho
+    Palavra *temp = realloc(*lista, (*total) * sizeof(Palavra));
+    if (temp != NULL || *total == 0) {
+        *lista = temp;
+    }//if
+}//removerPalavra
+
+// Função para alterar uma palavra existente
+void alterarPalavra(Palavra *lista, int total, int indice, char *novaPalavra, char *novaDica, int novaDificuldade, char *novoTema) {
+    if (indice < 0 || indice >= total) {
+        printf("Índice inválido!\n");
+        return;
+    }//if
+    
+    strcpy(lista[indice].palavra, novaPalavra);
+    strcpy(lista[indice].dica, novaDica);
+    lista[indice].dificuldade = novaDificuldade;
+    strcpy(lista[indice].tema, novoTema);
+}//alterarPalavra
+
+// Função para listar palavras por tema
+void listarPalavrasPorTema(Palavra *lista, int total, const char *tema) {
+    printf("\n=== PALAVRAS DO TEMA: %s ===\n", tema);
+    int encontradas = 0;
+    
+    for (int i = 0; i < total; i++) {
+        if (_stricmp(lista[i].tema, tema) == 0) {
+            printf("%d. %s - %s (Dif: %d)\n", 
+                   encontradas + 1, lista[i].palavra, lista[i].dica, lista[i].dificuldade);
+            encontradas++;
+        }//if
+    }//for
+    
+    if (encontradas == 0) {
+        printf("Nenhuma palavra encontrada para o tema '%s'\n", tema);
+    } else {
+        printf("Total: %d palavras\n", encontradas);
+    }//else
+}//listarPalavrasPorTema
+
+// Função para listar todas as palavras
+void listarTodasPalavras(Palavra *lista, int total) {
+    printf("\n=== TODAS AS PALAVRAS ===\n");
+    for (int i = 0; i < total; i++) {
+        printf("%d. %s - %s (Dif: %d) [%s]\n", 
+               i + 1, lista[i].palavra, lista[i].dica, lista[i].dificuldade, lista[i].tema);
+    }//for
+    printf("Total: %d palavras\n", total);
+}//listarTodasPalavras

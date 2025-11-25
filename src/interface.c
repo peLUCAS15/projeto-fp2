@@ -1,3 +1,7 @@
+/**
+ * Lugar responsavel por criar a interface do jogo
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -6,23 +10,24 @@
 void inicializarInterface(EstadoInterface *estadoInterface){
     estadoInterface->texturasCarregadas = false;
     estadoInterface->tecladoInicializado = false;
+    //ivita o desperdiçar memória
+
+    InitWindow(LARGURA_INICIAL, ALTURA_INICIAL, "Naruto no Multiverso (Wordle)");//definindo o tamanho da janela
+    SetTargetFPS(60);//definindo a quantidade de frames
     
-    InitWindow(LARGURA_INICIAL, ALTURA_INICIAL, "Naruto no Multiverso (Wordle)");
-    SetTargetFPS(60);
+    SetExitKey(0);//definindo que nenhuma tecla fecha a janela
     
-    SetExitKey(0);
-    
-    ClearWindowState(FLAG_WINDOW_RESIZABLE);
+    ClearWindowState(FLAG_WINDOW_RESIZABLE);//nao permite arrastar a tela
     
     if (FileExists("assets/imagens/background.png")){
         estadoInterface->texturaDeFundo = LoadTexture("assets/imagens/background.png");
-        estadoInterface->texturasCarregadas = true;
-    }
-}
+        estadoInterface->texturasCarregadas = true;//carregando a imagem
+    }//if
+}//inicializarInterface
 
 void finalizarInterface(void){
-    CloseWindow();
-}
+    CloseWindow();//fecha a janela
+}//finalizarInterface
 
 void desenharBackground(int fase){
     // desenha uma camada semi-transparente
@@ -33,21 +38,23 @@ void desenharBackground(int fase){
     if (fase >= 1 && fase <= 7){
         DrawText(TextFormat("FASE %d: %s", fase, temas[fase - 1]), 
                  30, 20, 28, YELLOW);
-    }
-}
+    }//if
+}//desenharBackground
 
 void desenharDica(EstadoJogo *estado){
-    if (estado == NULL || estado->palavraAtual == NULL) return;
+    if (estado == NULL || estado->palavraAtual == NULL) return;//caso nao ache nenhuma palavra, ele para aqui
     
     const char *dica = estado->palavraAtual->dica;
     int x = (GetScreenWidth() - 400) / 2;
     
+
+    // verifica se a dica esta revelada ou nao
     if (estado->dicaRevelada){
-        // desenha a dica revelada
         int largura = MeasureText(dica, 20) + 40;
         if (largura > GetScreenWidth() - 100) largura = GetScreenWidth() - 100;
         x = (GetScreenWidth() - largura) / 2;
         
+        //desenha a area da dica
         DrawRectangle(x, 20, largura, 50, (Color){30, 30, 30, 240});
         DrawRectangleLines(x, 20, largura, 50, YELLOW);
         DrawText("DICA:", x + 10, 25, 18, YELLOW);
@@ -61,22 +68,23 @@ void desenharDica(EstadoJogo *estado){
         Vector2 posicaoMouse = GetMousePosition();
         bool hover = CheckCollisionPointRec(posicaoMouse, botaoDica);
         
-        Color corFundo = hover ? (Color){50, 50, 50, 240} : (Color){30, 30, 30, 240};
-        Color corBorda = hover ? WHITE : YELLOW;
+        // a cor muda conforme o mouse esta sobre a dica
+        Color corFundo = hover ? (Color){50, 50, 50, 240} : (Color){30, 30, 30, 240};// if/else compacto
+        Color corBorda = hover ? WHITE : YELLOW; //if/else compacto
         
         DrawRectangle(botaoDica.x, botaoDica.y, botaoDica.width, botaoDica.height, corFundo);
         DrawRectangleLines(botaoDica.x, botaoDica.y, botaoDica.width, botaoDica.height, corBorda);
         
         const char *texto = "CLIQUE PARA REVELAR DICA (-20s)";
         int larguraTexto = MeasureText(texto, 18);
-        DrawText(texto, x + (largura - larguraTexto) / 2, 35, 18, YELLOW);
+        DrawText(texto, x + (largura - larguraTexto) / 2, 35, 18, YELLOW);//desenha o texto
         
         // verifica clique
         if (hover && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
             revelarDica(estado);
-        }
-    }
-}
+        }//if
+    }//else
+}//desenharDica
 
 void desenharCronometro(EstadoJogo *estado){
     if (estado == NULL) return;
@@ -119,12 +127,12 @@ void desenharCronometro(EstadoJogo *estado){
 void desenharGrid(EstadoJogo *estado, int x, int y){
     if (estado->palavraAtual == NULL) return;
     
-    int tamanhoPalavra = strlen(estado->palavraAtual->palavra);
+    int tamanhoPalavra = (int)strlen(estado->palavraAtual->palavra);
     int tamanhoCelula = 60;
     int espacamento = 8;
     
     // centraliza o grid horizontalmente e posiciona em cima
-    int larguraTotal = tamanhoPalavra * (tamanhoCelula + espacamento);
+    int larguraTotal = tamanhoPalavra * tamanhoCelula + (tamanhoPalavra - 1) * espacamento;
     x = (GetScreenWidth() - larguraTotal) / 2;
     y = 90; // posição ajustada embaixo da dica 
     
@@ -157,8 +165,9 @@ void desenharGrid(EstadoJogo *estado, int x, int y){
                         break;
                     default:
                         break;
-                }
-            }
+                }//switch
+            }//if
+
             // se é a tentativa atual
             else if (linha == estado->tentativaAtual && col < estado->posEntrada){
                 letra = estado->entradaAtual[col];
@@ -184,7 +193,7 @@ void desenharGrid(EstadoJogo *estado, int x, int y){
 }
 
 void inicializarTeclado(TecladoVirtual *teclado){
-    const char *linhas[] ={"QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"};
+    const char *linhas[] ={"QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"};//letras do teclado
     int larguraTecla = 60; 
     int alturaTecla = 60;   
     int espacamento = 5;     
@@ -205,11 +214,11 @@ void inicializarTeclado(TecladoVirtual *teclado){
                 yBase + linha * (alturaTecla + espacamento),
                 larguraTecla,
                 alturaTecla
-            };
+            };//definindo o tamanho de cada tecla
             idx++;
-        }
-    }
-}
+        }//for
+    }//for
+}//inicializarTeclado
 
 void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado){
     for (int i = 0; i < 26; i++){
@@ -234,8 +243,8 @@ void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado){
                 default:
                     corFundo = LIGHTGRAY;
                     break;
-            }
-        }
+            }//switch
+        }//if
         
         // desenha a tecla
         DrawRectangleRounded(rect, 0.2f, 10, corFundo);
@@ -243,7 +252,7 @@ void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado){
         Vector2 posicaoMouse = GetMousePosition();
         if (CheckCollisionPointRec(posicaoMouse, rect)){
             DrawRectangleRoundedLines(rect, 0.2f, 10, WHITE);
-        }
+        }//if
         
         // desenha a letra 
         char texto[2] ={letra, '\0'};
@@ -254,7 +263,7 @@ void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado){
                 rect.y + (rect.height - fonte) / 2 + 2,  // centralizado verticalmente
                 fonte, 
                 WHITE);
-    }
+    }//for
     
     // desenha teclas especiais (enter delete) abaixo do teclado
     int yEspeciais = GetScreenHeight() - 85; 
@@ -272,7 +281,7 @@ void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado){
     
     if (CheckCollisionPointRec(posicaoMouse, enterRect)){
         DrawRectangleRoundedLines(enterRect, 0.2f, 10, WHITE);
-    }
+    }//if
     
     int larguraEnter = MeasureText("ENTER", 20);
     DrawText("ENTER", enterRect.x + (larguraBotao - larguraEnter) / 2, enterRect.y + 16, 20, WHITE);
@@ -282,7 +291,7 @@ void desenharTeclado(EstadoJogo *estado, TecladoVirtual *teclado){
     
     if (CheckCollisionPointRec(posicaoMouse, backRect)){
         DrawRectangleRoundedLines(backRect, 0.2f, 10, WHITE);
-    }
+    }//if
     
     int larguraDelete = MeasureText("DELETE", 20);
     DrawText("DELETE", backRect.x + (larguraBotao - larguraDelete) / 2, backRect.y + 16, 20, WHITE);
@@ -292,8 +301,8 @@ char verificarCliqueTeclado(TecladoVirtual *teclado, Vector2 posicaoMouse){
     for (int i = 0; i < 26; i++){
         if (CheckCollisionPointRec(posicaoMouse, teclado->teclas[i])){
             return teclado->letras[i];
-        }
-    }
+        }//if
+    }//for
     
     // verifica o enter e o delete (ajustadas com as mesmas dimensões do desenho)
     int yEspeciais = GetScreenHeight() - 85;
@@ -308,13 +317,13 @@ char verificarCliqueTeclado(TecladoVirtual *teclado, Vector2 posicaoMouse){
     
     if (CheckCollisionPointRec(posicaoMouse, enterRect)){
         return '\n'; // enter
-    }
+    }//if
     if (CheckCollisionPointRec(posicaoMouse, backRect)){
         return '\b'; // espaco
-    }
+    }//if
     
     return '\0';
-}
+}//verificarCliqueTeclado
 
 void desenharMensagemFinal(EstadoJogo *estado){
     if (estado == NULL || estado->palavraAtual == NULL) return;
@@ -332,6 +341,7 @@ void desenharMensagemFinal(EstadoJogo *estado){
     DrawRectangle(x, y, larguraCaixa, alturaCaixa, (Color){30, 30, 30, 255});
     DrawRectangleLines(x, y, larguraCaixa, alturaCaixa, YELLOW);
     
+    //se o usuario venceu
     if (estado->venceu){
         // centraliza cada texto
         int larguraParabens = MeasureText("PARABÉNS!", 42);
@@ -357,8 +367,8 @@ void desenharMensagemFinal(EstadoJogo *estado){
         
         int larguraTentar = MeasureText("Pressione ESPAÇO para tentar novamente", 18);
         DrawText("Pressione ESPAÇO para tentar novamente", x + (larguraCaixa - larguraTentar) / 2, y + 200, 18, LIGHTGRAY);
-    }
-}
+    }//else
+}//desenharMensagemFinal
 
 int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     if (imagemFundo.id > 0){
@@ -369,10 +379,10 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
             (Vector2){0, 0},
             0.0f,
             WHITE
-        );
+        );//redimencionando imagem de fundo
     } else{
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), (Color){20, 20, 40, 255});
-    }
+    }//else
     
     const char *titulo = "SELECIONE UMA FASE";
     int larguraTitulo = MeasureText(titulo, 46);
@@ -386,12 +396,13 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
         "FASE 4 : RESIDENT EVIL",
         "FASE 5 : SILENT HILL",
         "FASE 6 : FINAL"
-    };
+    };//fases
     
     int faseSelecionada = -1;
     Vector2 posicaoMouse = GetMousePosition();
     bool clicou = IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
     
+    //botoes das fases
     for (int i = 0; i < 7; i++){
         int y = 50 + i * 95;
         Rectangle botao ={GetScreenWidth() / 2 - 300, y, 600, 75};
@@ -409,8 +420,8 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
             cor = YELLOW;
             if (clicou){
                 faseSelecionada = i + 1;
-            }
-        }
+            }//if
+        }//else
         
         DrawRectangleRounded(botao, 0.1f, 10, cor);
         DrawRectangleRoundedLines(botao, 0.1f, 10, WHITE);
@@ -422,8 +433,8 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
             DrawText(texto, botao.x + 140, botao.y + 25, 26, WHITE);
         } else{
             DrawText(texto, botao.x + 140, botao.y + 25, 26, WHITE);
-        }
-    }
+        }//else
+    }//for
     
     // botão de resetar progresso
     int yResetar = 220 + 5 * 95 + 20;
@@ -434,8 +445,8 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
         corResetar = RED;
         if (clicou){
             faseSelecionada = -2; // código para resetar
-        }
-    }
+        }//if
+    }//if
     
     DrawRectangleRounded(botaoResetar, 0.1f, 10, corResetar);
     DrawRectangleRoundedLines(botaoResetar, 0.1f, 10, WHITE);
@@ -449,34 +460,34 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     DrawText(textoESC, (GetScreenWidth() - larguraTextoESC) / 2, GetScreenHeight() - 10, 18, GRAY);
     
     return faseSelecionada;
-}
+}//desenharMenuFases
 
 void desenharJogo(EstadoJogo *estado, Texture2D terrenoFase, EstadoInterface *estadoInterface){
     BeginDrawing();
     ClearBackground(BLACK);
     
     if (terrenoFase.id > 0){
-        DrawTexturePro(terrenoFase, 
+        DrawTexturePro(terrenoFase, //redimensionando a imagem
                       (Rectangle){0, 0, (float)terrenoFase.width, (float)terrenoFase.height},
                       (Rectangle){0, 0, GetScreenWidth(), GetScreenHeight()},
                       (Vector2){0, 0}, 0.0f, WHITE);
-    }
+    }//if
     
     desenharBackground(estado->faseAtual);
     
     if (estado != NULL && estado->palavraAtual != NULL){
-        desenharDica(estado);
-        desenharCronometro(estado);
-    }
+        desenharDica(estado);//chamando funçao
+        desenharCronometro(estado);//chamando funçao
+    }//if
     desenharGrid(estado, 100, 200);
     
     if (!estadoInterface->tecladoInicializado){
-        inicializarTeclado(&estadoInterface->teclado);
+        inicializarTeclado(&estadoInterface->teclado);//chamando funçao
         estadoInterface->tecladoInicializado = true;
-    }
+    }//if
     
-    desenharTeclado(estado, &estadoInterface->teclado);
-    desenharMensagemFinal(estado);
+    desenharTeclado(estado, &estadoInterface->teclado);//chamando funçao
+    desenharMensagemFinal(estado);//chamando funçao
     
     EndDrawing();
-}
+}//desenharJogo

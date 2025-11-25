@@ -1,6 +1,7 @@
 #ifndef JOGO_H
 #define JOGO_H
 
+#include "../include/raylib.h"
 #include "palavras.h"
 
 #define maxTentativasFacil 5
@@ -37,6 +38,7 @@ typedef struct{
     float tempoInicial;
     int tempoEsgotado;
     int dicaRevelada;
+    Music somError;
 } EstadoJogo;
 
 void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase);

@@ -1,4 +1,4 @@
-﻿
+
 # detecta o sistema operacional
 ifeq ($(OS),Windows_NT)
     DETECTED_OS := Windows
