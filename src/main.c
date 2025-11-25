@@ -91,7 +91,7 @@ void desenharMenuInicial(Texture2D imagemMenu, int *opcaoSelecionada){
         );//redimenciona a imagem menu
     }//if
     
-    const char *titulo = "NARUTO NO MULTIVERSO";//escrevendo otitulo
+    const char *titulo = "NARUTO NO MULTIVERSO";//escrevendo o titulo
     int larguraTitulo = MeasureText(titulo, 60);
     DrawText(titulo, (1200 - larguraTitulo) / 2, 120, 60, ORANGE);
     
