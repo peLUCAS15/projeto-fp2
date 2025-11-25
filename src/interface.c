@@ -119,12 +119,12 @@ void desenharCronometro(EstadoJogo *estado){
 void desenharGrid(EstadoJogo *estado, int x, int y){
     if (estado->palavraAtual == NULL) return;
     
-    int tamanhoPalavra = strlen(estado->palavraAtual->palavra);
+    int tamanhoPalavra = (int)strlen(estado->palavraAtual->palavra);
     int tamanhoCelula = 60;
     int espacamento = 8;
     
     // centraliza o grid horizontalmente e posiciona em cima
-    int larguraTotal = tamanhoPalavra * (tamanhoCelula + espacamento);
+    int larguraTotal = tamanhoPalavra * tamanhoCelula + (tamanhoPalavra - 1) * espacamento;
     x = (GetScreenWidth() - larguraTotal) / 2;
     y = 90; // posição ajustada embaixo da dica 
     

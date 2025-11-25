@@ -478,13 +478,17 @@ bool executarCinematicaIntro(RecursosCinematica *recursos, int fase, EstadoCinem
     
     //desenhando a escrita na tela apos completar todas as falas
     if (estados->estadoIntro.dialogoAtual >= numeroDialogos - 1){
-        const char *texto = "Pressione ESPACO para começar o desafio!";
+        // Texto diferente para a fase final (Epílogo)
+        const char *texto;
+        if (fase == 1) {
+            texto = "Pressione ESPACO para continuar!";
+        } else {
+            texto = "Pressione ESPACO para começar o desafio!";
+        }
         int larguraTexto = MeasureText(texto, 24);
         DrawText(texto, (GetScreenWidth() - larguraTexto) / 2, 30, 24, YELLOW);
-        if(IsKeyPressed(KEY_SPACE) && fase == 1){
-            estados->estadoIntro.inicializado = true;
-        }//if
-        if (IsKeyPressed(KEY_SPACE)){//ao aperta ester reseta dos os estados
+        
+        if (IsKeyPressed(KEY_SPACE)){//ao apertar espaço reseta todos os estados
             estados->estadoIntro.inicializado = false;
             estados->estadoIntro.dialogoAtual = 0;
             estados->estadoIntro.narutoX = 0;

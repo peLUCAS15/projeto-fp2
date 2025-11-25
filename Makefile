@@ -1,4 +1,3 @@
-﻿
 # detecta o sistema operacional
 ifeq ($(OS),Windows_NT)
     DETECTED_OS := Windows
@@ -20,6 +19,7 @@ ifeq ($(DETECTED_OS),Windows)
     MKDIR_CMD = mkdir
     PATH_SEP = \\
     RUN_CMD = .\$(TARGET)
+
 else ifeq ($(DETECTED_OS),Darwin)
     # macos // não consegui testar no meu mac ainda
     LDFLAGS = -Llib -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreAudio
@@ -29,13 +29,14 @@ else ifeq ($(DETECTED_OS),Darwin)
     MKDIR_CMD = 
     PATH_SEP = /
     RUN_CMD = ./$(TARGET)
+
 else
     # linux
     LDFLAGS = -Llib -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
     TARGET = $(BIN_DIR)/naruto_multiverso
     RM = rm -rf
     MKDIR = mkdir -p
-    MKDIR_CMD = 
+    MKDIR_CMD =
     PATH_SEP = /
     RUN_CMD = ./$(TARGET)
 endif
@@ -50,7 +51,6 @@ SOURCES = $(SRC_DIR)/main.c $(SRC_DIR)/palavras.c $(SRC_DIR)/jogo.c $(SRC_DIR)/i
 OBJECTS = $(OBJ_DIR)/main.o $(OBJ_DIR)/palavras.o $(OBJ_DIR)/jogo.o $(OBJ_DIR)/interface.o $(OBJ_DIR)/cinematica.o
 
 # regras
-
 
 # regra padrão
 all: directories $(TARGET)
@@ -70,6 +70,7 @@ directories:
 	-@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)" 2>nul || echo.
 	-@if not exist "assets\imagens" mkdir "assets\imagens" 2>nul || echo.
 	-@if not exist "assets\audio" mkdir "assets\audio" 2>nul || echo.
+
 else
 directories:
 	@mkdir -p $(OBJ_DIR)
@@ -120,6 +121,7 @@ clean:
 	@cmd /c "if exist \"$(OBJ_DIR)\" rmdir /s /q \"$(OBJ_DIR)\""
 	@cmd /c "if exist \"$(BIN_DIR)\" rmdir /s /q \"$(BIN_DIR)\""
 	@echo "Limpeza concluida!"
+
 else
 clean:
 	@echo "Limpando arquivos compilados..."
