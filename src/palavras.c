@@ -4,6 +4,11 @@
 #include <time.h>
 #include "palavras.h"
 
+// compatibilidade multiplataforma para comparação case-sensitive
+#ifdef _WIN32
+#define strcasecmp _stricmp
+#endif
+
 void adicionarPalavraDireta(Palavra **lista, int *total, char *palavra, char *dica, int dificuldade, char *tema){
     Palavra *temp = realloc(*lista, (*total + 1) * sizeof(Palavra));
     if (!temp){
@@ -236,7 +241,7 @@ int salvarPalavrasCSV(Palavra *lista, int total, const char *nomeArquivo) {
 // Função para buscar uma palavra na lista
 int buscarPalavra(Palavra *lista, int total, const char *palavra) {
     for (int i = 0; i < total; i++) {
-        if (_stricmp(lista[i].palavra, palavra) == 0) {
+        if (strcasecmp(lista[i].palavra, palavra) == 0) {
             return i; // retorna o índice da palavra encontrada
         }//if
     }//for
@@ -286,7 +291,7 @@ void listarPalavrasPorTema(Palavra *lista, int total, const char *tema) {
     int encontradas = 0;
     
     for (int i = 0; i < total; i++) {
-        if (_stricmp(lista[i].tema, tema) == 0) {
+        if (strcasecmp(lista[i].tema, tema) == 0) {
             printf("%d. %s - %s (Dif: %d)\n", 
                    encontradas + 1, lista[i].palavra, lista[i].dica, lista[i].dificuldade);
             encontradas++;
