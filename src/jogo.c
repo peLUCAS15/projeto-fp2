@@ -6,7 +6,15 @@
 #include "jogo.h"
 
 void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
+    // salva o progresso antes de zerar o estado
+    int progressoSalvo[8];
+    memcpy(progressoSalvo, estado->progressoFases, sizeof(progressoSalvo));
+    
     memset(estado, 0, sizeof(EstadoJogo));
+    
+    // restaura o progresso salvo
+    memcpy(estado->progressoFases, progressoSalvo, sizeof(progressoSalvo));
+    
     estado->palavraAtual = palavra;
     estado->tentativaAtual = 0;
     estado->posEntrada = 0;
@@ -19,11 +27,7 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
     estado->dicaRevelada = (fase == 7) ? 1 : 0;// if/else campacto
     
     // define número máximo de tentativas por fase
-    if (fase <= 2){
-        estado->maxTentativasPermitidas = maxTentativasFacil; // 5 tentativas
-    } else{
-        estado->maxTentativasPermitidas = maxTentativasDificil; // 3 tentativas
-    }//if
+    estado->maxTentativasPermitidas = maxTentativasFacil; // 5 tentativas para todas as fases
     
     // define o tempo inicial baseado na fase
     if (fase == 7){
@@ -38,12 +42,6 @@ void inicializarJogo(EstadoJogo *estado, Palavra *palavra, int fase){
     // inicializa o teclado
     for (int i = 0; i < 26; i++){
         estado->teclado[i] = letraNaoUsada;
-    }//for
-    
-    // inicializa progresso das fases (primeira fase sempre liberada)
-    estado->progressoFases[0] = 1; // Liberada
-    for (int i = 2; i < 6; i++){
-        estado->progressoFases[i] = 0; // Bloqueada
     }//for
 }//inicializarJogo
 
@@ -147,12 +145,7 @@ int fazerTentativa(EstadoJogo *estado){
     // verifica se venceu
     if (todasCorretas){
         estado->venceu = 1;
-        // libera próxima fase 
-        if (estado->faseAtual < 8 && estado->progressoFases[estado->faseAtual] == 0){
-            estado->progressoFases[estado->faseAtual] = 1; // libera próxima    
-        }//if
-        estado->progressoFases[estado->faseAtual - 1] = 2; // marca como concluída  
-
+        // NÃO altera progressoFases aqui - só depois da cinemática de transição
     }//if
     
     // avança para próxima tentativa

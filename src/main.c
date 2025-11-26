@@ -148,8 +148,8 @@ void desenharInstrucoes(Texture2D imagemMenu){
     DrawText("INSTRUCOES", 400, 50, 40, ORANGE);
     
     DrawText("COMO JOGAR:", 100, 150, 25, YELLOW);
-    DrawText("- Adivinhe a palavra secreta em ate 5 tentativas (fases 1-2) ou 3 (fases 3-5)", 120, 190, 20, WHITE);
-    DrawText("- Cada tentativa deve ser uma palavra valida", 120, 220, 20, WHITE);
+    DrawText("- Adivinhe a palavra secreta em ate 5 tentativas", 120, 190, 20, WHITE);
+    DrawText("- Cada tentativa deve ser uma palavra completa", 120, 220, 20, WHITE);
     DrawText("- Use o teclado virtual ou fisico para digitar", 120, 250, 20, WHITE);
     
     DrawText("CORES:", 100, 310, 25, YELLOW);
@@ -183,20 +183,22 @@ void desenharCreditos(Texture2D imagemMenu){
     
     DrawRectangle(0, 0, 1200, 800, (Color){0, 0, 0, 200});
     
-    DrawText("CREDITOS", 450, 80, 40, ORANGE);
+    DrawText("CREDITOS", (1200 - MeasureText("CREDITOS", 40)) / 2, 80, 40, ORANGE);
     
-    DrawText("NARUTO NO MULTIVERSO", 250, 180, 30, YELLOW);
+    DrawText("NARUTO NO MULTIVERSO", (1200 - MeasureText("NARUTO NO MULTIVERSO", 30)) / 2, 140, 30, YELLOW);
     
-    DrawText("Desenvolvido por:", 400, 260, 25, WHITE);
-    DrawText("Lucas Peluca", 450, 300, 25, ORANGE);
-    DrawText("Samuel Pires", 450, 350, 25, ORANGE);
-    DrawText("Rodrigo Gomes", 450, 400, 25, ORANGE);
+    DrawText("Desenvolvido por:", (1200 - MeasureText("Desenvolvido por:", 25)) / 2, 220, 25, WHITE);
     
-    DrawText("Tecnologias:", 450, 480, 25, WHITE);
-    DrawText("- Linguagem C", 480, 520, 20, LIGHTGRAY);
-    DrawText("- Biblioteca Raylib 5.5", 480, 550, 20, LIGHTGRAY);
+    DrawText("Lucas Peluca", (1200 - MeasureText("Lucas Peluca", 25)) / 2, 260, 25, ORANGE);
+    DrawText("Samuel Pires", (1200 - MeasureText("Samuel Pires", 25)) / 2, 300, 25, ORANGE);
+    DrawText("Rodrigo Gomes", (1200 - MeasureText("Rodrigo Gomes", 25)) / 2, 340, 25, ORANGE);
     
-    DrawText("Pressione ESC ou clique para voltar", 350, 720, 25, ORANGE);
+    DrawText("Tecnologias:", (1200 - MeasureText("Tecnologias:", 25)) / 2, 420, 25, WHITE);
+    
+    DrawText("Linguagem C", (1200 - MeasureText("Linguagem C", 25)) / 2, 460, 25, ORANGE);
+    DrawText("Biblioteca Raylib 5.5", (1200 - MeasureText("Biblioteca Raylib 5.5", 25)) / 2, 500, 25, ORANGE);
+
+    DrawText("Pressione ESC ou clique para voltar", (1200 - MeasureText("Pressione ESC ou clique para voltar", 25)) / 2, 720, 25, ORANGE);
     
     EndDrawing();
 }//desenharCreditos
@@ -878,8 +880,6 @@ int main(void){
                 
                 if (fase > 0){
                     faseSelecionada = fase;
-                    // salva o progresso atual antes de entrar na fase
-                    salvarProgresso(&estado);
                     // reseta o estado das cinemáticas ao selecionar uma nova fase
                     memset(&estadosCinematicas, 0, sizeof(EstadoCinematicas));
                     telaAtual = TELA_CINEMATICA;
@@ -916,10 +916,6 @@ int main(void){
                 if (IsKeyPressed(KEY_ESCAPE)){
                     // reseta o estado das cinemáticas ao voltar para o menu
                     memset(&estadosCinematicas, 0, sizeof(EstadoCinematicas));
-                    // reseta completamente o estado do jogo
-                    memset(&estado, 0, sizeof(EstadoJogo));
-                    // recarrega o progresso do arquivo para restaurar fases desbloqueadas
-                    carregarProgresso(&estado);
                     telaAtual = TELA_MENU;
                 }//if
                 break;
@@ -954,10 +950,6 @@ int main(void){
                 if (IsKeyPressed(KEY_ESCAPE)){
                     // reseta o estado das cinemáticas ao voltar para o menu
                     memset(&estadosCinematicas, 0, sizeof(EstadoCinematicas));
-                    // reseta completamente o estado do jogo
-                    memset(&estado, 0, sizeof(EstadoJogo));
-                    // recarrega o progresso do arquivo para restaurar fases desbloqueadas
-                    carregarProgresso(&estado);
                     telaAtual = TELA_MENU;
                 }//if
                 
@@ -999,10 +991,6 @@ int main(void){
                 if (IsKeyPressed(KEY_ESCAPE)){
                     // reseta o estado das cinemáticas ao voltar para o menu
                     memset(&estadosCinematicas, 0, sizeof(EstadoCinematicas));
-                    // reseta completamente o estado do jogo
-                    memset(&estado, 0, sizeof(EstadoJogo));
-                    // recarrega o progresso do arquivo para restaurar fases desbloqueadas
-                    carregarProgresso(&estado);
                     telaAtual = TELA_MENU;
                 }//if
                 
@@ -1020,7 +1008,7 @@ int main(void){
                         estado.progressoFases[faseSelecionada] = 1;
                     }//if
                     
-                    // salva o progresso
+                    // salva o progresso após completar a fase
                     salvarProgresso(&estado);
                     
                     // transição terminou vai para o menu ou próxima fase
@@ -1033,10 +1021,6 @@ int main(void){
                 if (IsKeyPressed(KEY_ESCAPE)){
                     // reseta o estado das cinemáticas e jogo ao voltar para o menu
                     memset(&estadosCinematicas, 0, sizeof(EstadoCinematicas));
-                    // reseta completamente o estado do jogo
-                    memset(&estado, 0, sizeof(EstadoJogo));
-                    // recarrega o progresso do arquivo para restaurar fases desbloqueadas
-                    carregarProgresso(&estado);
                     telaAtual = TELA_MENU;
                 }//if
                 break;

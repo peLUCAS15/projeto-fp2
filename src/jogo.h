@@ -32,7 +32,7 @@ typedef struct{
     int perdeu;
     EstadoLetra teclado[26];
     int faseAtual;
-    int progressoFases[6];
+    int progressoFases[8];
     int maxTentativasPermitidas;
     float tempoRestante;
     float tempoInicial;

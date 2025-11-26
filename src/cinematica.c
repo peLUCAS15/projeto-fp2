@@ -476,11 +476,7 @@ bool executarCinematicaIntro(RecursosCinematica *recursos, int fase, EstadoCinem
     if (estados->estadoIntro.dialogoAtual >= numeroDialogos - 1){
         // Texto diferente para a fase final (Epílogo)
         const char *texto;
-<<<<<<< HEAD
         if (fase == 1 || fase == 8) {
-=======
-        if (fase == 1) {
->>>>>>> ebe7565b6744533466cfdcfdf0becb51c2d9b56c
             texto = "Pressione ESPACO para continuar!";
         } else {
             texto = "Pressione ESPACO para começar o desafio!";

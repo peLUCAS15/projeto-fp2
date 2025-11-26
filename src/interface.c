@@ -36,7 +36,7 @@ void desenharBackground(int fase){
     // desenha indicador de fase
     const char *temas[] ={"NARUTO", "DRAGON BALL", "ONE PIECE", "HARRY POTTER", "RESIDENT EVIL", "SILENT HILL", "FINAL"};
     if (fase >= 1 && fase <= 7){
-        DrawText(TextFormat("FASE %d: %s", fase, temas[fase - 1]), 
+        DrawText(TextFormat("FASE %d: %s", fase - 1, temas[fase - 1]), 
                  30, 20, 28, YELLOW);
     }//if
 }//desenharBackground
@@ -404,8 +404,8 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     
     //botoes das fases
     for (int i = 0; i < 7; i++){
-        int y = 50 + i * 95;
-        Rectangle botao ={GetScreenWidth() / 2 - 300, y, 600, 75};
+        int y = 120 + i * 80;
+        Rectangle botao ={GetScreenWidth() / 2 - 300, y, 600, 70};
         
         Color cor = DARKGRAY;
         
@@ -437,8 +437,8 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     }//for
     
     // botão de resetar progresso
-    int yResetar = 220 + 5 * 95 + 20;
-    Rectangle botaoResetar ={GetScreenWidth() / 2 - 200, yResetar, 400, 60};
+    int yResetar = 120 + 7 * 80;
+    Rectangle botaoResetar ={GetScreenWidth() / 2 - 200, yResetar, 400, 50};
     
     Color corResetar = (Color){150, 50, 50, 255};
     if (CheckCollisionPointRec(posicaoMouse, botaoResetar)){
@@ -453,11 +453,11 @@ int desenharMenuFases(EstadoJogo *estado, Texture2D imagemFundo){
     
     const char *textoResetar = "RESETAR PROGRESSO";
     int larguraResetar = MeasureText(textoResetar, 24);
-    DrawText(textoResetar, (GetScreenWidth() - larguraResetar) / 2, yResetar + 18, 24, WHITE);
+    DrawText(textoResetar, (GetScreenWidth() - larguraResetar) / 2, yResetar + 13, 24, WHITE);
     
     const char *textoESC = "ESC - Para voltar ao menu inicial";
     int larguraTextoESC = MeasureText(textoESC, 18);
-    DrawText(textoESC, (GetScreenWidth() - larguraTextoESC) / 2, GetScreenHeight() - 10, 18, GRAY);
+    DrawText(textoESC, (GetScreenWidth() - larguraTextoESC) / 2, yResetar + 65, 18, GRAY);
     
     return faseSelecionada;
 }//desenharMenuFases
